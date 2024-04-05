@@ -1,14 +1,14 @@
-package com.pilleasychat.project.web.chatbot;
+package com.pilleasychat.project.web.signup;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/chat")
-public class ChatbotController {
+@RequestMapping("/signup")
+public class SignupController {
     @GetMapping("")
-    public String chat() {
-        return "html/chatbot/chatbot";
+    public String signup() {
+        return "html/signup/signup";
     }
 }
