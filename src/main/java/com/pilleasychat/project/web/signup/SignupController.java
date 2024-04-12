@@ -16,7 +16,7 @@ public class SignupController {
 
     private final SignupService signupService;
     @GetMapping("")
-    public String signupPage() {
+    public String signupPage(@ModelAttribute("user") User user) {
         return "html/signup/signup";
     }
 
