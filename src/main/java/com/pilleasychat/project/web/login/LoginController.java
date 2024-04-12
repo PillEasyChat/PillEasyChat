@@ -19,7 +19,7 @@ public class LoginController {
 
     private final LoginService loginService;
     @GetMapping("")
-    public String loginPage() {
+    public String loginPage(@ModelAttribute LoginForm loginForm) {
         return "html/login/login";
     }
 
