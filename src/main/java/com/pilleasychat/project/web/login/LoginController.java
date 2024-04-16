@@ -55,7 +55,7 @@ public class LoginController {
     }
 
     @GetMapping("/callback")
-    public String callback(@RequestParam("code") String code) throws IOException {
+    public String callback(@RequestParam("code") String code, HttpServletRequest request) throws IOException {
         String accessToken = kakaoLoginService.getAccessTokenFromKakao(client_id, code);
         HashMap<String, Object> userInfo = kakaoLoginService.getUserInfo(accessToken);
         System.out.println("email : " + userInfo.get("email"));
@@ -67,6 +67,8 @@ public class LoginController {
                             userInfo.get("email").toString(), userInfo.get("nickname").toString());
         //로그인
         loginService.login(user.getEmail(), user.getPassword());
+        HttpSession session = request.getSession();
+        session.setAttribute(SessionConst.LOGIN_MEMBER, user);
 
         return "redirect:/";
     }
