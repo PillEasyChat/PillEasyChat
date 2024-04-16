@@ -16,4 +16,16 @@ public class SignupServiceImpl implements SignupService {
     public void register(User user) {
         userRepository.save(user);
     }
+
+    @Override
+    public User createUser(String email, String name) {
+        User user = new User();
+        user.setName(name);
+        user.setEmail(email);
+        //패스워드 암호화
+        user.setPassword("password");
+        userRepository.save(user);
+
+        return user;
+    }
 }
