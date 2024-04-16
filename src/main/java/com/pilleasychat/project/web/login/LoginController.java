@@ -47,7 +47,6 @@ public class LoginController {
 
     @GetMapping("/callback")
     public String callback(@RequestParam("code") String code) {
-        System.out.println("sdsd");
         return null;
     }
 
