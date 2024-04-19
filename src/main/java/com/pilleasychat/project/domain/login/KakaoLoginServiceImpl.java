@@ -2,6 +2,10 @@ package com.pilleasychat.project.domain.login;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pilleasychat.project.domain.entity.User;
+import com.pilleasychat.project.domain.signup.SignupService;
+import com.pilleasychat.project.domain.user.UserService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +19,12 @@ import java.util.Map;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class KakaoLoginServiceImpl implements KakaoLoginService{
+
+    private final UserService userService;
+    private final SignupService signupService;
+    private final LoginService loginService;
     @Override
     public String getAccessTokenFromKakao(String client_id, String code) throws IOException {
         String reqURL = "https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id="+client_id+"&code=" + code;
@@ -53,7 +62,7 @@ public class KakaoLoginServiceImpl implements KakaoLoginService{
     }
 
     @Override
-    public HashMap<String, Object> getUserInfo(String accessToken) throws IOException {
+    public User getUserInfo(String accessToken) throws IOException {
         // 클라이언트 요청 정보
         HashMap<String, Object> userInfo = new HashMap<String, Object>();
 
@@ -103,6 +112,22 @@ public class KakaoLoginServiceImpl implements KakaoLoginService{
         userInfo.put("email", email);
 
 
-        return userInfo;
+        User user = login(userInfo);
+
+        return user;
     }
+
+    public User login(HashMap<String, Object> userInfo){
+        User user = userService.findByEmail(userInfo.get("email").toString());
+        // 회원가입
+        if (user == null)
+            user = signupService.createUser(
+                    userInfo.get("email").toString(), userInfo.get("nickname").toString());
+        //로그인
+        loginService.login(user.getEmail(), user.getPassword());
+
+        return user;
+    }
+
+
 }
