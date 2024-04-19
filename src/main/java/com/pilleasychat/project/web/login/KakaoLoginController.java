@@ -34,15 +34,8 @@ public class KakaoLoginController {
     @GetMapping("/callback")
     public String callback(@RequestParam("code") String code, HttpServletRequest request) throws IOException {
         String accessToken = kakaoLoginService.getAccessTokenFromKakao(client_id, code);
-        HashMap<String, Object> userInfo = kakaoLoginService.getUserInfo(accessToken);
-        // User 로그인, 또는 회원가입 로직 추가
-        User user = userService.findByEmail(userInfo.get("email").toString());
-        // 회원가입
-        if (user == null)
-            user = signupService.createUser(
-                    userInfo.get("email").toString(), userInfo.get("nickname").toString());
-        //로그인
-        loginService.login(user.getEmail(), user.getPassword());
+        User user = kakaoLoginService.getUserInfo(accessToken);
+
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.LOGIN_MEMBER, user);
 
