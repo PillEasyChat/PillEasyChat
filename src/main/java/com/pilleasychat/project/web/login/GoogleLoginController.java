@@ -1,9 +1,10 @@
 package com.pilleasychat.project.web.login;
 
+import com.pilleasychat.project.domain.login.GoogleLoginService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -12,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequiredArgsConstructor
 public class GoogleLoginController {
 
-    @GetMapping("/oauth2/code/google/{provider}")
-    public String callback(@RequestParam String code){
+    private final GoogleLoginService googleLoginService;
 
+    @GetMapping("/oauth2/code/google")
+    public String successGoogleLogin(@RequestParam("code") String accessCode){
+        googleLoginService.getGoogleAccessToken(accessCode);
         return "redirect:/";
     }
 }

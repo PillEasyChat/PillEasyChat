@@ -25,7 +25,7 @@ public class LoginController {
     @Value("${spring.kakao.redirect_uri}")
     private String kakao_redirect_uri;
 
-    @Value("${spring.security.oauth2.client.registration.google.client-id}")
+    @Value("${spring.security.oauth2.client.registration.google.client_id}")
     private String google_client_id;
     @GetMapping("")
     public String loginPage(LoginForm loginForm, Model model) {
