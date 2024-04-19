@@ -29,7 +29,7 @@ public class LoginController {
     private String google_client_id;
     @GetMapping("")
     public String loginPage(LoginForm loginForm, Model model) {
-        String kakaoLocation = "https://kauth.kakao.com/oauth/auth?client_id=" + kakao_client_id + "&redirect_uri=" + kakao_redirect_uri;
+        String kakaoLocation = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id="+kakao_client_id+"&redirect_uri="+kakao_redirect_uri;
         String googleLocation = "https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email&client_id="
                 + google_client_id + "&response_type=code&redirect_uri=http://localhost:8080/login/oauth2/code/google&access_type=offline";
         model.addAttribute("kakaoLocation", kakaoLocation);
