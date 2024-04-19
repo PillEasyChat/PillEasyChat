@@ -1,6 +1,10 @@
 package com.pilleasychat.project.web.login;
 
+import com.pilleasychat.project.domain.entity.User;
 import com.pilleasychat.project.domain.login.GoogleLoginService;
+import com.pilleasychat.project.web.SessionConst;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,8 +20,11 @@ public class GoogleLoginController {
     private final GoogleLoginService googleLoginService;
 
     @GetMapping("/oauth2/code/google")
-    public String successGoogleLogin(@RequestParam("code") String accessCode){
-        googleLoginService.getGoogleAccessToken(accessCode);
+    public String successGoogleLogin(@RequestParam("code") String accessCode, HttpServletRequest request){
+        User user = googleLoginService.getGoogleAccessToken(accessCode);
+
+        HttpSession session = request.getSession();
+        session.setAttribute(SessionConst.LOGIN_MEMBER, user);
         return "redirect:/";
     }
 }
