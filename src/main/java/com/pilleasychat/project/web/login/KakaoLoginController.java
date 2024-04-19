@@ -28,14 +28,13 @@ public class KakaoLoginController {
     private final UserService userService;
     private final KakaoLoginService kakaoLoginService;
 
-    @Value("${kakao.client_id}")
+    @Value("${spring.kakao.client_id}")
     private String client_id;
 
     @GetMapping("/callback")
     public String callback(@RequestParam("code") String code, HttpServletRequest request) throws IOException {
         String accessToken = kakaoLoginService.getAccessTokenFromKakao(client_id, code);
         HashMap<String, Object> userInfo = kakaoLoginService.getUserInfo(accessToken);
-        System.out.println("email : " + userInfo.get("email"));
         // User 로그인, 또는 회원가입 로직 추가
         User user = userService.findByEmail(userInfo.get("email").toString());
         // 회원가입

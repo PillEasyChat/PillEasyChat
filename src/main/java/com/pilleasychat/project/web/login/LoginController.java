@@ -19,15 +19,15 @@ public class LoginController {
 
     private final LoginService loginService;
 
-    @Value("${kakao.client_id}")
-    private String client_id;
+    @Value("${spring.kakao.client_id}")
+    private String kakao_client_id;
 
-    @Value("${kakao.redirect_uri}")
-    private String redirect_uri;
+    @Value("${spring.kakao.redirect_uri}")
+    private String kakao_redirect_uri;
     @GetMapping("")
     public String loginPage(LoginForm loginForm, Model model) {
-        String location = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id="+client_id+"&redirect_uri="+redirect_uri;
-        model.addAttribute("location", location);
+        String kakaoLocation = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id="+kakao_client_id+"&redirect_uri="+kakao_redirect_uri;
+        model.addAttribute("kakaoLocation", kakaoLocation);
         return "html/login/login";
     }
 
