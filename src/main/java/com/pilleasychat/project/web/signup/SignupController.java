@@ -1,5 +1,6 @@
 package com.pilleasychat.project.web.signup;
 
+import com.pilleasychat.project.domain.dto.UserDto;
 import com.pilleasychat.project.domain.entity.User;
 import com.pilleasychat.project.domain.login.LoginService;
 import com.pilleasychat.project.domain.signup.SignupService;
@@ -22,12 +23,12 @@ public class SignupController {
     private final SignupService signupService;
     private final LoginService loginService;
     @GetMapping("")
-    public String signupPage(@ModelAttribute("user") User user) {
+    public String signupPage(@ModelAttribute("user") UserDto user) {
         return "html/signup/signup";
     }
 
     @PostMapping("")
-    public String signup(@ModelAttribute("user") User user) {
+    public String signup(@ModelAttribute("user") UserDto user) {
         signupService.register(user);
         return "redirect:/";
     }
@@ -49,7 +50,7 @@ public class SignupController {
     }
 
     @PostMapping("/additional")
-    public String additional(@ModelAttribute("user") User user) {
+    public String additional(@ModelAttribute("user") UserDto user) {
         signupService.register(user);
         return "redirect:/";
     }
