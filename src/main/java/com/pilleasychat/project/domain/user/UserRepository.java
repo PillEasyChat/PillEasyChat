@@ -19,4 +19,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
                 })
                 .findFirst();
     }
+    default Boolean checkAdditional(User user) {
+        if (user.getSpecialNote() == null || user.getAge() == null ||
+                user.getAllergy() == null || user.getName() == null ||
+                user.getNickname() == null || user.getTakingMedication() == null) {
+            return false;
+        }
+        return true;
+    }
 }
