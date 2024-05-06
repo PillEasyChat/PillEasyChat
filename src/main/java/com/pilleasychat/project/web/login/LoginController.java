@@ -44,8 +44,13 @@ public class LoginController {
         if (user == null) {
             return "redirect:/login";
         }
-        HttpSession session = request.getSession();
+        // 세션을 생성하기 전에 기존의 세션 파기
+        request.getSession().invalidate();
+        HttpSession session = request.getSession(true);  // Session이 없으면 생성
+
+        session.setAttribute("userEmail", user.getEmail());
         session.setAttribute(SessionConst.LOGIN_MEMBER, user);
+        session.setMaxInactiveInterval(1800);
         return "redirect:/";
     }
 

@@ -1,12 +1,14 @@
 package com.pilleasychat.project.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "users")
 public class User {
 
@@ -23,11 +25,13 @@ public class User {
     @Column
     private String nickname;
     @Column
-    private int age;
+    private Long age;
     @Column
     private String specialNote;
     @Column
     private String allergy;
     @Column
     private String takingMedication;
+
+
 }
