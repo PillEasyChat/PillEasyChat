@@ -27,6 +27,7 @@ public class GoogleLoginController {
         request.getSession().invalidate();
         HttpSession session = request.getSession(true);  // Session이 없으면 생성
         session.setAttribute("userEmail", user.getEmail());
+        session.setAttribute("userName", user.getNickname());
         session.setAttribute(SessionConst.LOGIN_MEMBER, user);
         session.setMaxInactiveInterval(1800);
         return "redirect:/";

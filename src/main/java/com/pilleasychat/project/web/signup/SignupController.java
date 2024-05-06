@@ -38,7 +38,6 @@ public class SignupController {
 
         HttpSession session = request.getSession();
         User user = signupService.findByEmail((String)session.getAttribute("userEmail"));
-        System.out.println("user = " + user);
         UserDto userDto = signupService.entityToDto(user);
 
         model.addAttribute("user", userDto);
