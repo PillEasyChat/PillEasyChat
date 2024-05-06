@@ -5,6 +5,10 @@
     <title>home</title>
 </head>
 <body>
-    <p>home</p>
+    <p th:if="${session.get('userName') != null}">환영합니다! <span th:text="${session.get('userName')}"></span></p>
+    <p th:unless="${session.get('userName') != null}">로그인 해주세요</p>
+
+    <!-- 로그아웃 링크 -->
+    <a th:if="${session.get('userName') != null}" href="/logout">로그아웃</a>
 </body>
 </html>
