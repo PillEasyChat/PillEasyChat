@@ -50,4 +50,30 @@ public class SignupServiceImpl implements SignupService {
                 .build();
         return user;
     }
+
+    @Override
+    public UserDto entityToDto(User user) {
+        return UserDto.builder()
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .name(user.getName())
+                .userAge(user.getAge())
+                .nickname(user.getNickname())
+                .allergy(user.getAllergy())
+                .specialNote(user.getSpecialNote())
+                .takingMedication(user.getTakingMedication())
+                .build();
+    }
+
+    @Override
+    public void update(UserDto userDto) {
+        User user = userRepository.findByEmail(userDto.getEmail()).orElse(null);
+        user.setName(userDto.getName());
+        user.setAge(userDto.getUserAge());
+        user.setAllergy(userDto.getAllergy());
+        user.setNickname(userDto.getNickname());
+        user.setSpecialNote(userDto.getSpecialNote());
+        user.setTakingMedication(userDto.getTakingMedication());
+        userRepository.save(user);
+    }
 }

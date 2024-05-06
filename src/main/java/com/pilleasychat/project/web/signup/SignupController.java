@@ -39,19 +39,15 @@ public class SignupController {
         HttpSession session = request.getSession();
         User user = signupService.findByEmail((String)session.getAttribute("userEmail"));
         System.out.println("user = " + user);
+        UserDto userDto = signupService.entityToDto(user);
 
-        model.addAttribute("user", new String[]{
-                user.getName(),
-                user.getNickname(),
-                user.getSpecialNote(),
-                user.getAllergy(),
-                user.getTakingMedication()});
+        model.addAttribute("user", userDto);
         return "html/signup/additional";
     }
 
     @PostMapping("/additional")
     public String additional(@ModelAttribute("user") UserDto user) {
-        signupService.register(user);
+        signupService.update(user);
         return "redirect:/";
     }
 }

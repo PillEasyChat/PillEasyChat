@@ -8,4 +8,6 @@ public interface SignupService {
     User createUser(String email, String name);
     User findByEmail(String email);
     User dtoToEntity(UserDto user);
+    UserDto entityToDto(User user);
+    void update(UserDto userDto);
 }

@@ -7,9 +7,16 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    default Optional<User> findByEmail(String email){
+    default Optional<User> findByEmail(String email) {
+        if (email == null) {
+            return Optional.empty(); // 이메일이 null인 경우, 빈 Optional을 반환합니다.
+        }
+
         return findAll().stream()
-                .filter(m -> m.getEmail().equals(email))
+                .filter(m -> {
+                    String userEmail = m.getEmail();
+                    return userEmail != null && email.equals(userEmail);
+                })
                 .findFirst();
     }
 }
