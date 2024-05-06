@@ -23,7 +23,6 @@ public class AdditionalCheckInterceptor implements HandlerInterceptor {
 
         HttpSession session = request.getSession();
         User user = userRepository.findByEmail((String)session.getAttribute("userEmail")).orElse(null);
-        System.out.println("asdsads" + user);
         if (!userRepository.checkAdditional(user)) {
             response.sendRedirect("/signup/additional?redirectURL="+ requestURI);
             return false;
