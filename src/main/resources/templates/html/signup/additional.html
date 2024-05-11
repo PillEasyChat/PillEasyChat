@@ -1,51 +1,198 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>회원가입 페이지</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/templates/images/img_6.png" type="image/x-icon">
+    <style>
+        .container {
+            border-radius: 35px;
+            background-color: #fff;
+            display: flex;
+            max-width: 392px;
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            color: #000;
+            font-weight: 700;
+            line-height: 140%;
+            height: 852px;
+            margin: 0 auto;
+        }
+
+        .signup-title {
+            color: #000;
+            align-self: center;
+            margin-top: 17px;
+            font-size: 28px;
+        }
+
+        .input-wrapper {
+            margin-top: 10px;
+            border: 1px solid #000;
+            background-color: #fff;
+            padding: 16px 17px;
+            font-size: 18px;
+            width: 100%;
+            height: 55px;
+            box-sizing: border-box;
+            color: #847f7f;
+        }
+
+        .email-verification {
+            display: flex;
+            gap: 14px;
+        }
+
+        .verification-button {
+            width: 110px;
+            height: 54px;
+            margin-top: 10px;
+            background-color: black;
+            color: white;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .allergies-section fieldset legend {
+            font-size: 18px;
+            color: #847f7f;
+        }
+
+        section > span {
+            margin-right: 80px;
+        }
+
+        .section_text {
+            margin-right: 30px;
+        }
+
+        .sign-up-button {
+            background-color: #000;
+            color: #fff;
+            margin-top: 30px;
+            padding: 16px;
+            font-size: 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .footer-text {
+            color: #000;
+            align-self: center;
+            margin-top: 20px;
+            font-size: 12px;
+        }
+
+        .close {
+            color: blue;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            margin-top: 30px;
+        }
+    </style>
 </head>
 <body>
-<form action="" th:action th:object="${user}" method="post">
-    <div>
-        <label for="email">이름</label>
-        <input type="text" id="email" th:field="*{email}">
-    </div>
-    <div>
-        <label for="name">이름</label>
-        <input type="text" id="name" th:field="*{name}">
-    </div>
-    <div>
-        <label for="nickname">닉네임</label>
-        <input type="text" id="nickname" th:field="*{nickname}">
-    </div>
-    <div>
-        <label for="age">나이</label>
-        <input type="number" id="age" th:field="*{userAge}"
-               class="form-control">
-    </div>
-    <div>
-        <label for="specialNote">특이사항(임산부, 어린 자녀를 둔 부모, 노약자 등)</label>
-        <input type="text" id="specialNote" th:field="*{specialNote}" class="form-control">
-    </div>
-    <div>
-        <label for="allergy">알러지 유무(어떤 알러지인지)</label>
-        <input type="text" id="allergy" th:field="*{allergy}" class="form-control">
-    </div>
-    <div>
-        <label for="takingMedication">복용하고 있는 약</label>
-        <input type="text" id="takingMedication" th:field="*{takingMedication}" class="form-control">
-    </div>
-    <hr class="my-4">
-    <div class="row">
-        <div class="col">
-            <button class="w-100 btn btn-primary btn-lg" type="submit">수정</button>
+<section class="container">
+    <h1 class="signup-title">회원가입</h1>
+    <!--form SignUp-->
+    <form th:action="@{/signup}" th:object="${user}" method="post">
+        <!--이름-->
+        <input type="text" id="name" class="input-wrapper" aria-label="이름" placeholder="이름" th:field="*{name}"/>
+        <!--닉네임-->
+        <input type="text" id="nickname" class="input-wrapper" aria-label="닉네임" placeholder="닉네임"
+               th:field="*{nickname}"/>
+        <!--아이디-->
+        <div class="email-verification">
+            <input type="text" id="id" class="input-wrapper" aria-label="아이디" placeholder="아이디" th:field="*{id}">
+            <button type="button" class="verification-button" onclick="checkIdAvailability()">중복확인</button>
         </div>
-        <div class="col">
-            <button class="w-100 btn btn-secondary btn-lg"
-                    th:onclick="|location.href='@{/}'|"
-                    type="button">취소</button>
+        <!--"중복확인"버튼으로 아이디를 확인-->
+        <script th:inline="javascript">
+            function checkIdAvailability() {
+                // 입력 필드에서 ID 값을 가져옴
+                var id = document.getElementById('id').value;
+
+                // ID가 비어 있지 않으면 요청을 보냄
+                if (id) {
+                    fetch('/check-id', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            // Spring Security에서 CSRF 토큰 헤더를 사용하면 헤더를 추가
+                            'X-CSRF-TOKEN': /*[[${_csrf.token}]]*/ 'token'
+                        },
+                        body: JSON.stringify({'id': id})
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.available) {
+                                alert('ID를 사용할 수 있습니다.');
+                            } else {
+                                alert('ID가 이미 존재합니다.');
+                            }
+                        }).catch(error => {
+                        console.error('ERROR:', error);
+                    });
+                } else {
+                    alert('ID를 확인하려면 ID를 입력하세요.');
+                }
+            }
+        </script>
+        <!--이메일-->
+        <input type="email" id="email" class="input-wrapper" aria-label="이메일" placeholder="이메일" th:field="*{email}"/>
+        <!--비밀번호-->
+        <input type="password" id="password" class="input-wrapper" aria-label="비밀번호" placeholder="비밀번호" th:field="*{password}"/>
+        <!--연령대-->
+        <div class="age-group-section" id="age">
+            <select class="input-wrapper" th:field="*{age}" style="padding-left: 13px">
+                <option value="">연령대</option>
+                <option value="10대">10대</option>
+                <option value="20대">20대</option>
+                <option value="30대">30대</option>
+                <option value="40대">40대</option>
+                <option value="50대">50대</option>
+                <option value="60대 이상">60대 이상</option>
+            </select>
         </div>
-    </div>
-</form>
+       <!--특이사항-->
+        <div class="additional-info" id="specialNote">
+            <select class="input-wrapper" th:field="*{specialNote}" style="padding-left: 13px">
+                <option value="">특이사항</option>
+                <option value="임산부">임산부</option>
+                <option value="노약자">노약자</option>
+                <option value="장애인">장애인</option>
+                <option value="어린 자녀를 둔 부모">어린 자녀를 둔 부모</option>
+            </select>
+        </div>
+        <!--알러지 유무-->
+        <div class="allergies-section" id="allergy" style="font-weight: normal;">
+            <section class="input-wrapper" id="takingMedicine">
+                <span>알러지 유무</span>
+                <label class="section_text">
+                    <input type="radio" name="allergies" value="yes" th:field="*{allergies}"> 있음
+                </label>
+                <label>
+                    <input type="radio" name="allergies" value="no" th:field="*{allergies}"> 없음
+                </label>
+            </section>
+        </div>
+        <!--복용하고 있는 약-->
+        <input type="text" id="takingMedication" class="input-wrapper" aria-label="복용하고 있는 약" placeholder="복용하고 있는 약"
+               th:field="*{takingMedication}"/>
+        <!--회원가입 버튼-->
+        <button type="submit" class="sign-up-button">회원가입</button>
+    </form>
+    <!--전페이지로 돌아감-->
+    <a href="javascript:history.back()" class="close">취소</a>
+    <footer class="footer-text">ⓒ 필이지챗</footer>
+</section>
 </body>
 </html>
