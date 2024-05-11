@@ -1,44 +1,150 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>회원가입 페이지</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/templates/images/img_6.png" type="image/x-icon">
+    <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js"></script>
+    <style>
+        .container {
+            border-radius: 35px;
+            background-color: #fff;
+            display: flex;
+            max-width: 392px;
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            color: #000;
+            font-weight: 700;
+            line-height: 140%;
+            height: 852px;
+            margin: 0 auto;
+        }
+
+        .logo-img {
+            border-radius: 25px;
+            aspect-ratio: auto;
+            object-fit: cover;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .social-img {
+            aspect-ratio: auto;
+            margin: 4px 30px;
+        }
+
+        .signup-title {
+            margin-top: 14px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .email-signup {
+            width: 100%;
+            border-radius: 13px;
+            background-color: #000;
+            margin-top: 70px;
+            align-items: start;
+            color: #fff;
+            padding: 13px 78px;
+            font-size: 20px;
+        }
+
+        .separator-img {
+            aspect-ratio: 16.67;
+            object-fit: cover;
+            width: 328px;
+            fill: #847f7f;
+            margin-top: 45px;
+        }
+
+        .social-signup {
+            border-radius: 13px;
+            background-color: var(--social-btn-bg-color);
+            display: flex;
+            margin-top: 40px;
+            height: 60px;
+            font-size: 17px;
+            justify-content: space-between;
+            cursor: pointer;
+            width: 323px;
+        }
+
+        .social-signup-text {
+            margin-right: 30px;
+            margin-left: -10px;
+            margin-top: 18px;
+            font-weight: bold;
+            width: 200px;
+            font-size: 16px;
+        }
+
+        .social-signup-text1 {
+            margin-right: 70px;
+            margin-top: 18px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .login_sign {
+            color: blue;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            margin-top: 170px;
+            font-weight: bold;
+        }
+
+        .footer-text {
+            margin-top: 20px;
+            font-size: 12px;
+        }
+    </style>
 </head>
 <body>
-    <form action="" th:action th:object="${user}" method="post">
-        <div>
-            <label for="name">이름</label>
-            <input type="text" id="name" th:field="*{name}" class="form-control">
-            <!--            <div class="field-error" th:errors="*{loginId}" />-->
-        </div>
-        <div>
-            <label for="email">이메일</label>
-            <input type="text" id="email" th:field="*{email}" class="form-control">
-            <!--            <div class="field-error" th:errors="*{name}" />-->
-        </div>
-        <div>
-            <label for="password">비밀번호</label>
-            <input type="password" id="password" th:field="*{password}"
-                   class="form-control">
-            <!--            <div class="field-error" th:errors="*{password}" />-->
-        </div>
-        <div>
-            <label for="nickname">닉네임</label>
-            <input type="text" id="nickname" th:field="*{nickname}" class="form-control">
-            <!--            <div class="field-error" th:errors="*{name}" />-->
-        </div>
-        <hr class="my-4">
-        <div class="row">
-            <div class="col">
-                <button class="w-100 btn btn-primary btn-lg" type="submit">회원
-                    가입</button>
-            </div>
-            <div class="col">
-                <button class="w-100 btn btn-secondary btn-lg"
-                        th:onclick="|location.href='@{/}'|"
-                        type="button">취소</button>
-            </div>
-        </div>
+<div class="container">
+    <!--Logo Image-->
+    <img loading="lazy" src="/templates/images/img.png"
+         class="logo-img"
+         alt="Company Logo"/>
+    <!--SignUp Text-->
+    <div class="signup-title">회원가입</div>
+    <!--ID로 회원가입-->
+    <form th:action="@{/signup}" method="post">
+        <button type="submit" class="email-signup">아이디로 회원가입</button>
     </form>
+    <!--간편가입 Image Text-->
+    <img loading="lazy" src="/templates/images/img_3.png"
+         class="separator-img"
+         alt="간편가입"/>
+    <!--Kakaotalk로 회원가입-->
+    <form th:action="@{/kakao}" method="post">
+        <button type="submit" class="social-signup" style="--social-btn-bg-color: yellow; border: 1px solid #ffff00;">
+            <img loading="lazy" src="/templates/images/img_1.png"
+                 class="social-img"
+                 alt="카카오톡 로고"/>
+            <div class="social-signup-text">카카오톡으로 회원가입</div>
+        </button>
+    </form>
+    <!--Google로 회원가입-->
+    <form th:action="@{/google}" method="post">
+        <button type="submit" class="social-signup" style="--social-btn-bg-color: #F7F7F7; border: 1px solid rgba(236,231,231,0.6);">
+            <img loading="lazy" src="/templates/images/img_7.png"
+                 style="width: 45px; height: 45px; padding-top: 3px;"
+                 class="social-img"
+                 alt="구글 로고"/>
+            <div class="social-signup-text1">구글로 회원가입</div>
+        </button>
+    </form>
+    <!--로그인 페이지 이동-->
+    <a class="login_sign" th:href="@{/login}">로그인 하기</a>
+    <!--앱 Footer text-->
+    <div class="footer-text">ⓒ 필이지챗</div>
+</div>
 </body>
 </html>
