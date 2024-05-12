@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>아이디 찾기 페이지</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/templates/images/img_6.png" type="image/x-icon">
+    <style>
+        .container {
+            border-radius: 35px;
+            background-color: #fff;
+            display: flex;
+            max-width: 392px;
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            color: #000;
+            font-weight: 700;
+            line-height: 140%;
+            min-height: 852px;
+            margin: 0 auto;
+            padding: 30px 0 10px 0;
+        }
+
+        .image {
+            aspect-ratio: 2.78;
+            object-fit: cover;
+            object-position: center;
+            width: 100%;
+        }
+
+        .title {
+            margin-top: 19px;
+            font: 32px Inter, sans-serif;
+            font-weight: bold;
+        }
+
+        .email, .password {
+            border: 1px solid rgba(0, 0, 0, 1);
+            background-color: transparent;
+            align-self: stretch;
+            margin-top: 30px;
+            color: #888686;
+            padding: 21px 20px;
+            font: 17px Inter, sans-serif;
+            width: 87%;
+        }
+
+        .confirmButton {
+            border-radius: 10px;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+            margin-top: 38px;
+            width: 100%;
+            color: #fff;
+            padding: 14px 60px;
+            font: 700 20px/140% Inter, sans-serif;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .footerText {
+            margin-top: 20px;
+            align-content: center;
+            font: 400 12px Inter, sans-serif;
+        }
+
+        .cancel-btn {
+            color: blue;
+            text-align: center;
+            margin-top: 230px;
+            font: 18px Inter, sans-serif;
+            cursor: pointer;
+            border: none;
+            background: none;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<a class="container">
+    <img src="/templates/images/img.png" alt="Logo" class="image"/>
+    <div class="title">아이디 찾기</div>
+    <form id="findid" th:action="@{/findid}" th:object="${user}" method="post">
+        <input type="email" id="email" th:field="*{email}" class="email" placeholder="이메일" aria-label="이메일">
+        <input type="password" id="password" th:field="*{password}" class="password" placeholder="비밀번호"
+               aria-label="비밀번호">
+        <button type="submit" class="confirmButton">찾기</button>
+    </form>
+    <a href="javascript:history.back()" class="cancel-btn">돌아가기</a>
+    <div class="footerText">ⓒ 필이지챗</div>
+    </div>
+</body>
+</html>
