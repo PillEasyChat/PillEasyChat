@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/templates/images/img_6.png" type="image/x-icon">
+    <title>내 정보 페이지</title>
+    <style>
+        .main-container {
+            border-radius: 35px;
+            background-color: #fff;
+            display: flex;
+            max-width: 392px;
+            width: 100%;
+            flex-direction: column;
+            font-weight: 700;
+            line-height: 140%;
+            min-height: 852px;
+            margin: 0 auto;
+        }
+
+        .title {
+            color: #000;
+            align-self: center;
+            font: 32px Inter, sans-serif;
+            margin-top: 30px;
+        }
+
+        .user-info, .age-group, .special-notes {
+            border: 1px solid rgba(0, 0, 0, 1);
+            background-color: #fff;
+            margin-top: 16px;
+            color: #847f7f;
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            padding: 16px;
+            font: 18px Inter, sans-serif;
+        }
+
+        .allergy-info {
+            border: 1px solid rgba(0, 0, 0, 1);
+            background-color: #fff;
+            margin-top: 16px;
+            color: #847f7f;
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            padding: 16px;
+            font: 18px Inter, sans-serif;
+            width: 360px;
+
+        }
+
+        .submit-button {
+            background-color: #bbb9b9;
+            color: #000;
+            padding: 16px 19px;
+            font: 14px Inter, sans-serif;
+            cursor: pointer;
+        }
+
+        .submit-button {
+            background-color: #000;
+            margin-top: 40px;
+            color: #fff;
+            padding: 16px 60px;
+            font: 20px Inter, sans-serif;
+            align-self: center;
+            margin-bottom: 10px;
+        }
+
+        .footer-text {
+            color: #000;
+            align-self: center;
+            margin-top: 20px;
+            font: 400 12px Inter, sans-serif;
+        }
+
+        .verification-button {
+            height: 54px;
+            margin-top: 15px;
+            background-color: black;
+            color: white;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            width: 90px;
+        }
+
+        section > span {
+            margin-right: 30px;
+        }
+
+        .verification-button2 {
+            width: 100px;
+            height: 54px;
+            margin-top: 15px;
+            background-color: black;
+            color: white;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .email-verification {
+            display: flex;
+            gap: 14px;
+        }
+
+        .input-wrapper-email {
+            margin-top: 15px;
+            border: 1px solid #000;
+            background-color: #fff;
+            padding: 16px 17px;
+            font-size: 18px;
+            height: 55px;
+            box-sizing: border-box;
+            color: #847f7f;
+            align-items: center;
+            width: 287px;
+        }
+
+        .input-wrapper {
+            margin-top: 15px;
+            border: 1px solid #000;
+            background-color: #fff;
+            padding: 16px 17px;
+            font-size: 18px;
+            height: 55px;
+            box-sizing: border-box;
+            color: #847f7f;
+            align-items: center;
+            width: 286px;
+        }
+
+        .cancel-btn {
+            color: blue;
+            text-align: center;
+            font: 18px Inter, sans-serif;
+            cursor: pointer;
+            border: none;
+            background: none;
+            text-decoration: none;
+            margin-top: 70px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="main-container">
+    <div class="title">나의 회원정보</div>
+    <div class="user-info">사용자 이름: <span th:text="${user.name}"></span></div>
+    <div class="age-group">연령대: <span th:text="${user.age}"></span></div>
+    <div class="special-notes">특이사항: <span th:text="${user.specialNote}"></span></div>
+    <div class="allergies-section" id="allergy" style="font-weight: normal;">
+        <section>
+            <span class="allergy-info">알러지 유무: <span
+                    th:text="${user.allergies.equals('yes') ? '있음' : '없음'}"></span></span>
+        </section>
+    </div>
+    <div class="special-notes">복용하고 있는 약: <span th:text="${user.takingMedication}"></span></div>
+    <div class="action-section">
+        <div class="email-verification">
+            <input type="email" id="email" class="input-wrapper-email" aria-label="이메일" th:value="${user.email}"
+                   placeholder="이메일" disabled/>
+            <button type="button" class="verification-button" th:onclick="'window.location.href=\'/change-email\''">
+                이메일
+                수정
+            </button>
+        </div>
+    </div>
+    <div class="action-section">
+        <div class="password-verification">
+            <input type="password" id="password" class="input-wrapper" aria-label="비밀번호" th:value="${user.password}"
+                   placeholder="비밀번호" disabled/>
+            <button class="verification-button2"
+                    th:onclick="'window.location.href=\'/change-password\''">비밀번호 수정
+            </button>
+        </div>
+    </div>
+    <button type="submit" class="submit-button" th:onclick="'window.location.href=\'/update\''">회원정보 수정하기</button>
+    <a href="javascript:history.back()" class="cancel-btn">돌아가기</a>
+    <div class="footer-text">ⓒ 필이지챗</div>
+</div>
+</body>
+</html>
