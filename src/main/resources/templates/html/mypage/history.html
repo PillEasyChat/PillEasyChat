@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>질문 히스토리 페이지</title>
+    <style>
+        .container {
+            border-radius: 35px;
+            background-color: #fff;
+            display: flex;
+            max-width: 382px;
+            width: 100%;
+            flex-direction: column;
+            font-size: 21px;
+            color: #000;
+            font-weight: 700;
+            line-height: 140%;
+            margin: 0 auto;
+            padding: 30px 0 37px;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .content-item {
+            font-family: 'Inter', sans-serif;
+            border-bottom: 1px solid rgba(0, 0, 0, 1);
+            background-color: #fff;
+            margin-top: 15px;
+            width: 100%;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-top: none;
+            border-right: none;
+            border-left: none;
+            text-align: left;
+        }
+
+        .cancel-btn {
+            color: blue;
+            text-align: center;
+            margin-top: 30px;
+            font: 18px Inter, sans-serif;
+            cursor: pointer;
+            border: none;
+            background: none;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footerText {
+            color: #000;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+        }
+    </style>
+    <script>
+        // 만약 이것이 당신의 질문의 이력 데이터
+        const questionHistory = [
+            {
+                id: 1,
+                text: "항생제는 어떻게 작용합니까?",
+                detail: "항생제는 체내의 세균을 죽이거나 성장을 막아줍니다."
+            },
+            {
+                id: 2,
+                text: "진통약의 부작용은 무엇입니까?",
+                detail: "일부 부작용에는 구역질, 두통 또는 피부 알레르기가 있을 수 있습니다."
+            },
+            {
+                id: 3,
+                text: "알레르기 치료제와 항히스타민제의 차이는 무엇입니까?",
+                detail: "둘 다 알레르기를 치료하는 데 사용되지만, 항히스타민제는 특히 체내의 히스타민 작용을 차단합니다."
+            },
+            {
+                id: 4,
+                text: "제2형 당뇨병 치료에 주로 사용되는 약물은 무엇입니까?",
+                detail: "메트포르민 약물이 인기 있는 선택사항이며, 인슐린 수치를 높이거나 혈당을 감소시키는 다른 약물도 사용됩니다."
+            },
+            {
+                id: 5,
+                text: "우울증 치료약은 어떻게 작용합니까?",
+                detail: "이들은 종종 세로토닌 및 노르에피네프린과 같은 뇌 내 화학 물질의 농도를 증가시켜 기분을 개선합니다."
+            }
+        ];
+
+        // 이 함수는 길이가 25개 글자가 넘으면 세세히 줄을 끊는다
+        function shortenDetail(detail) {
+            return detail.length > 1 ? detail.substring(0, 25) + '...' : detail;
+        }
+
+        function displayQuestions() {
+            const listElement = document.getElementById('questionList');
+
+            questionHistory.forEach(function (question) {
+                const btn = document.createElement('button');
+                btn.classList.add('content-item');
+                const strongText = document.createElement('strong');
+                strongText.innerText = question.text;
+                const detailText = document.createElement('span');
+                detailText.innerText = `\n\n${shortenDetail(question.detail)}`;
+                btn.appendChild(strongText);
+                btn.appendChild(detailText);
+                btn.onclick = function () {
+                    alert(question.detail);
+                };
+                listElement.appendChild(btn);
+            });
+        }
+
+        window.onload = displayQuestions;
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="title">질문 히스토리</div>
+    <div id="questionList"></div>
+    <a href="javascript:history.back()" class="cancel-btn">돌아가기</a>
+    <div class="footerText">ⓒ 필이지챗</div>
+</div>
+</body>
+</html>
