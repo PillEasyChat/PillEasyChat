@@ -1,10 +1,197 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/templates/images/img_6.png" type="image/x-icon">
+    <title>내 정보 업데이트 페이지</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .container {
+            border-radius: 35px;
+            background-color: #fff;
+            display: flex;
+            max-width: 392px;
+            width: 100%;
+            flex-direction: column;
+            font-weight: 700;
+            line-height: 1.4;
+            min-height: 852px;
+            height: auto;
+            margin: 0 auto;
+        }
+
+        .signup-title {
+            color: #000;
+            align-self: center;
+            margin-top: 17px;
+            font-size: 28px;
+        }
+
+        .input-wrapper {
+            margin-top: 10px;
+            border: 1px solid #000;
+            background-color: #fff;
+            padding: 16px 17px;
+            font-size: 18px;
+            width: 100%;
+            height: 55px;
+            box-sizing: border-box;
+            color: #847f7f;
+        }
+
+        .allergies-section fieldset legend {
+            font-size: 18px;
+            color: #847f7f;
+        }
+
+        .sign-up-button {
+            background-color: #000;
+            color: #fff;
+            margin-top: 30px;
+            padding: 16px;
+            font-size: 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        section > span {
+            margin-right: 80px;
+        }
+
+        .section_text {
+            margin-right: 30px;
+        }
+
+        .footer-text {
+            color: #000;
+            align-self: center;
+            margin-top: 20px;
+            font-size: 12px;
+        }
+
+        .avatar-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .avatar-image {
+            background-color: #d9d9d9;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            margin: 10px auto 0;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .avatar-button {
+            background-color: #4e4e4e;
+            color: white;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            padding: 10px 10px;
+            display: block;
+            margin-left: 5px;
+        }
+
+        .cancel-btn {
+            color: blue;
+            text-align: center;
+            margin-top: 20px;
+            font: 18px Inter, sans-serif;
+            cursor: pointer;
+            border: none;
+            background: none;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-  <p>update</p>
+<section class="container">
+    <h1 class="signup-title">회원정보 수정</h1>
+    <!--아바타가 있으면 아바타를 표시하고, 그렇지 않으면 기본 이미지를 표시-->
+    <div class="avatar-section">
+        <img th:src="${userAvatar != null ? @{${userAvatar}} : @{/resources/templates/images/default-avatar.png}}"
+             alt="User Avatar" class="avatar-image"/>
+
+        <form th:action="@{/upload-avatar}" method="post" enctype="multipart/form-data">
+            <input type="file" name="avatar" class="avatar-button" accept="image/*" onchange="readURL(this);"/>
+        </form>
+    </div>
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    document.querySelector('.avatar-image').setAttribute('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelector('.avatar-button').addEventListener('change', function () {
+                readURL(this);
+            });
+        });
+    </script>
+    <form th:action="@{/update-profile}" th:object="${user}" method="post" enctype="multipart/form-data">
+        <input type="text" id="username" th:field="*{username}" class="input-wrapper" aria-label="이름" placeholder="이름"/>
+        <input type="text" id="nickname" th:field="*{nickname}" class="input-wrapper" aria-label="닉네임"
+               placeholder="닉네임"/>
+        <div class="age-group-section" id="age">
+            <select class="input-wrapper" th:field="*{age}" style="padding-left: 13px">
+                <option value="">연령대</option>
+                <option value="10대">10대</option>
+                <option value="20대">20대</option>
+                <option value="30대">30대</option>
+                <option value="40대">40대</option>
+                <option value="50대">50대</option>
+                <option value="60대 이상">60대 이상</option>
+            </select>
+        </div>
+        <div class="additional-info" id="special">
+            <select class="input-wrapper" th:field="*{specialNote}" style="padding-left: 13px">
+                <option value="">특이사항</option>
+                <option value="임산부">임산부</option>
+                <option value="노약자">노약자</option>
+                <option value="장애인">장애인</option>
+                <option value="어린 자녀를 둔 부모">어린 자녀를 둔 부모</option>
+            </select>
+        </div>
+        <div class="allergies-section" id="allergy" style="font-weight: normal;">
+            <section class="input-wrapper" id="takingMedicine">
+                <span>알러지 유무</span>
+                <label class="section_text">
+                    <input type="radio" name="allergies" value="yes" th:field="*{allergies}"> 있음
+                </label>
+                <label>
+                    <input type="radio" name="allergies" value="no" th:field="*{allergies}"> 없음
+                </label>
+            </section>
+        </div>
+        <!--복용하고 있는 약-->
+        <input type="text" id="takingMedication" class="input-wrapper" aria-label="복용하고 있는 약" placeholder="복용하고 있는 약"
+               th:field="*{takingMedication}"/>
+        <button type="submit" class="sign-up-button">저장</button>
+    </form>
+    <a href="javascript:history.back()" class="cancel-btn">취소</a>
+    <footer class="footer-text">ⓒ 필이지챗</footer>
+</section>
 </body>
 </html>
