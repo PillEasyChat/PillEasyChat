@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .screen {
+           background-color: #ffffff;
+           display: flex;
+           flex-direction: row;
+           justify-content: center;
+           width: 100%;
+        }
+
+        .screen .div {
+           background-color: #ffffff;
+           overflow: hidden;
+           width: 393px;
+           height: 852px;
+           position: relative;
+        }
+
+        .screen .overlap-group{
+            position: absolute;
+            width: 135px;
+            height: 52px;
+            top: 630px;
+            left: 120px;
+        }
+
+        .screen .text-wrapper{
+            height: 36px;
+            top: 10px;
+            left: 25px;
+            font-family: "Inter-Bold", Helvetica;
+            font-weight: 600;
+            color: #fffbfb;
+            background-color: #000000;
+            font-size: 21px;
+            text-align: center;
+            line-height: 29.4px;
+            position: absolute;
+            letter-spacing: 0;
+        }
+
+        .screen .text-wrapper-2{
+            width: 331px;
+            height: 90px;
+            top: 121px;
+            left: 31px;
+            font-family: "Inter-Bold", Helvetica;
+            font-weight: 700;
+            color: #000000;
+            font-size: 30px;
+            text-align: center;
+            line-height: 44.8px;
+            position: absolute;
+            letter-spacing: 0;
+        }
+
+        .screen .text-wrapper-3{
+            height: 34px;
+            top: 282px;
+            left: 28px;
+            font-family: "Inter-Bold", Helvetica;
+            font-weight: 700;
+            color: #000000;
+            font-size: 24px;
+            text-align: center;
+            line-height: 33.6px;
+            white-space: nowrap;
+            position: absolute;
+            letter-spacing: 0;
+        }
+
+        .screen .overlap{
+            position: absolute;
+            width: 393px;
+            height: 69px;
+            top: 329px;
+            left: -4px;
+            background-color: #ffffff;
+        }
+
+        .screen .text-wrapper-4{
+            width: 334px;
+            height: 40px;
+            top: 18px;
+            left: 30px;
+            font-family: "Inter-Regular", Helvetica;
+            font-weight: 400;
+            color: #000000;
+            font-size: 18px;
+            text-align: center;
+            line-height: 29.4px;
+            white-space: nowrap;
+            position: absolute;
+            letter-spacing: 0;
+        }
+
+        .screen .text-wrapper-5{
+            height: 31px;
+            top: 433px;
+            left: 27px;
+            font-family: "Inter-Bold", Helvetica;
+            font-weight: 700;
+            color: #000000;
+            font-size: 22px;
+            line-height: 30.8px;
+            white-space: nowrap;
+            position: absolute;
+            letter-spacing: 0;
+        }
+
+        .screen .frame{
+            display: inline-flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px;
+            position: absolute;
+            top: 466px;
+            left: 17px;
+        }
+
+        .screen .rectangle{
+            position: relative;
+            width: 328px;
+            height: 45px;
+            margin: -1px;
+            border: 1px solid;
+            border-color: #000000;
+        }
+
+        .screen .text-wrapper-6{
+            height: 17px;
+            top: 825px;
+            left: 162px;
+            font-family: "Inter-Regular", Helvetica;
+            font-weight: 400;
+            color: #000000;
+            font-size: 12px;
+            line-height: 16.8px;
+            white-space: nowrap;
+            position: absolute;
+            letter-spacing: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="screen">
+    <div class="div">
+        <form class="overlap-group" action="Sunregister.html" method="get">
+            <button class="text-wrapper" onclick="submitForm()" type="submit">탈퇴하기</button>
+        </form>
+        <div class="text-wrapper-2">정말로 Pill Easy Chat을 탈퇴 하시겠습니까?</div>
+        <div class="text-wrapper-3">사유</div>
+        <form class="overlap" action="#">
+            <select class="text-wrapper-4" name="reason">
+                <option value="unuse">자주 사용하지 않음</option>
+                <option value="uncomfortable">사용하기 불편함</option>
+                <option value="etc">기타</option>
+            </select>
+        </form>
+        <div class="text-wrapper-5">비밀번호 입력</div>
+        <div class="frame"><input type="password" class="rectangle" /></div>
+        <div class="text-wrapper-6">ⓒ 필이지챗</div>
+    </div>
+</div>
+<script>
+    function submitForm() {
+        // 사용자가 입력한 비번 가져오기
+        var passwordInput = document.querySelector('.rectangle');
+        var userInputPassword = passwordInput.value;
+
+        // 서버에 저장된 비밀번호
+        var serverPassword = "서버 비번";
+
+        // 사용자가 비번 미입력 여부 검증 후 폼제출 막기
+        if (userInputPassword.trim() === "") {
+            alert("비밀번호를 입력해주세요.");
+            event.preventDefault();
+            return;
+        }
+
+        // 입력한 비밀번호와 서버의 비밀번호를 비교
+        if (userInputPassword === serverPassword) {
+            // 두 개 비번 일치시 폼 제출
+            document.querySelector('.overlap-group').submit();
+        } else {
+            // 불일치시 경고창 띄우고 폼제출 막은 후 비밀번호 초기화
+            alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요.");
+            event.preventDefault();
+            passwordInput.value = "";
+        }
+    }
+</script>
+</body>
+</html>
