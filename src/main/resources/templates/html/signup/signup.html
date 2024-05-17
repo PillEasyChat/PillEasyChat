@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>회원가입 페이지</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/templates/images/img_6.png" type="image/x-icon">
+    <link rel="icon" href="/images/img_6.png" type="image/x-icon">
     <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
     <script src="https://apis.google.com/js/platform.js"></script>
     <style>
@@ -109,7 +109,7 @@
 <body>
 <div class="container">
     <!--Logo Image-->
-    <img loading="lazy" src="/templates/images/img.png"
+    <img loading="lazy" src="/images/img.png"
          class="logo-img"
          alt="Company Logo"/>
     <!--SignUp Text-->
@@ -119,13 +119,13 @@
         <button type="submit" class="email-signup">아이디로 회원가입</button>
     </form>
     <!--간편가입 Image Text-->
-    <img loading="lazy" src="/templates/images/img_3.png"
+    <img loading="lazy" src="/images/img_3.png"
          class="separator-img"
          alt="간편가입"/>
     <!--Kakaotalk로 회원가입-->
     <form th:action="@{/kakao}" method="post">
         <button type="submit" class="social-signup" style="--social-btn-bg-color: yellow; border: 1px solid #ffff00;">
-            <img loading="lazy" src="/templates/images/img_1.png"
+            <img loading="lazy" src="/images/img_1.png"
                  class="social-img"
                  alt="카카오톡 로고"/>
             <div class="social-signup-text">카카오톡으로 회원가입</div>
@@ -134,7 +134,7 @@
     <!--Google로 회원가입-->
     <form th:action="@{/google}" method="post">
         <button type="submit" class="social-signup" style="--social-btn-bg-color: #F7F7F7; border: 1px solid rgba(236,231,231,0.6);">
-            <img loading="lazy" src="/templates/images/img_7.png"
+            <img loading="lazy" src="/images/img_7.png"
                  style="width: 45px; height: 45px; padding-top: 3px;"
                  class="social-img"
                  alt="구글 로고"/>

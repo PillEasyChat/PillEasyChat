@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>로그인 페이지</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/templates/images/img_6.png" type="image/x-icon">
+    <link rel="icon" href="/images/img_6.png" type="image/x-icon">
     <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
     <script src="https://apis.google.com/js/platform.js"></script>
     <style>
@@ -103,7 +103,7 @@
 </head>
 <body>
 <div class="login-container">
-    <img loading="lazy" src="/templates/images/img.png" alt="Logo" class="logo"/>
+    <img loading="lazy" src="/images/img.png" alt="Logo" class="logo"/>
     <div class="login-title">로그인</div>
     <!--form 로그인-->
     <form th:action="@{/login}" method="post">
@@ -122,10 +122,10 @@
 
     <div class="sns-login-container">
         <!--카카오톡으로 로그인-->
-        <img loading="lazy" src="/templates/images/img_4.png" alt="SNS KaKao" class="sns-icon"
+        <img loading="lazy" src="/images/img_4.png" alt="SNS KaKao" class="sns-icon"
              th:src="@{${kakaoLocation}}"/>
         <!--구굴로 로그인-->
-        <img loading="lazy" src="/templates/images/img_7.png" alt="SNS Naver" class="sns-icon"
+        <img loading="lazy" src="/images/img_7.png" alt="SNS Naver" class="sns-icon"
              th:src="@{${googleLocation}}"/>
     </div>
     <!--회원가입 이동-->

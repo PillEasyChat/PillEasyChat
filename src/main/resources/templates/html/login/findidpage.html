@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>아이디 찾기 페이지</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/templates/images/img_6.png" type="image/x-icon">
+    <link rel="icon" href="/images/img_6.png" type="image/x-icon">
     <style>
         .container {
             border-radius: 35px;
@@ -81,7 +81,7 @@
 </head>
 <body>
 <a class="container">
-    <img src="/templates/images/img.png" alt="Logo" class="image"/>
+    <img src="/images/img.png" alt="Logo" class="image"/>
     <div class="title">아이디 찾기</div>
     <form id="findid" th:action="@{/findid}" th:object="${user}" method="post">
         <input type="email" id="email" th:field="*{email}" class="email" placeholder="이메일" aria-label="이메일">
