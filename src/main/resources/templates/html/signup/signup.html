@@ -123,24 +123,24 @@
          class="separator-img"
          alt="간편가입"/>
     <!--Kakaotalk로 회원가입-->
-    <form th:action="@{/kakao}" method="post">
-        <button type="submit" class="social-signup" style="--social-btn-bg-color: yellow; border: 1px solid #ffff00;">
+    <a th:href="${kakaoLocation}">
+        <button class="social-signup" style="--social-btn-bg-color: yellow; border: 1px solid #ffff00;">
             <img loading="lazy" src="/images/img_1.png"
                  class="social-img"
                  alt="카카오톡 로고"/>
             <div class="social-signup-text">카카오톡으로 회원가입</div>
         </button>
-    </form>
+    </a>
     <!--Google로 회원가입-->
-    <form th:action="@{/google}" method="post">
-        <button type="submit" class="social-signup" style="--social-btn-bg-color: #F7F7F7; border: 1px solid rgba(236,231,231,0.6);">
+    <a th:href="${googleLocation}">
+        <button class="social-signup" style="--social-btn-bg-color: #F7F7F7; border: 1px solid rgba(236,231,231,0.6);">
             <img loading="lazy" src="/images/img_7.png"
                  style="width: 45px; height: 45px; padding-top: 3px;"
                  class="social-img"
                  alt="구글 로고"/>
             <div class="social-signup-text1">구글로 회원가입</div>
         </button>
-    </form>
+    </a>
     <!--로그인 페이지 이동-->
     <a class="login_sign" th:href="@{/login}">로그인 하기</a>
     <!--앱 Footer text-->
