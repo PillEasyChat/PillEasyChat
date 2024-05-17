@@ -122,11 +122,13 @@
 
     <div class="sns-login-container">
         <!--카카오톡으로 로그인-->
-        <img loading="lazy" src="/images/img_4.png" alt="SNS KaKao" class="sns-icon"
-             th:src="@{${kakaoLocation}}"/>
+        <a th:href="${kakaoLocation}">
+            <img loading="lazy" src="/images/img_4.png" alt="SNS KaKao" class="sns-icon"/>
+        </a>
         <!--구굴로 로그인-->
-        <img loading="lazy" src="/images/img_7.png" alt="SNS Naver" class="sns-icon"
-             th:src="@{${googleLocation}}"/>
+        <a th:href="${googleLocation}">
+            <img loading="lazy" src="/images/img_7.png" alt="SNS Naver" class="sns-icon"/>
+        </a>
     </div>
     <!--회원가입 이동-->
     <div class="register-btn-wrapper" th:onclick="|window.location.href='@{/signup}'|">회원가입 하기</div>
