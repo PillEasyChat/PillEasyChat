@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>회원가입 페이지</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/templates/images/img_6.png" type="image/x-icon">
+    <link rel="icon" href="/images/img_6.png" type="image/x-icon">
     <style>
         .container {
             border-radius: 35px;
@@ -103,63 +103,24 @@
 <section class="container">
     <h1 class="signup-title">회원가입</h1>
     <!--form SignUp-->
-    <form th:action="@{/signup}" th:object="${user}" method="post">
+    <form action="" th:action th:object="${user}" method="post">
         <!--이름-->
         <input type="text" id="name" class="input-wrapper" aria-label="이름" placeholder="이름" th:field="*{name}"/>
         <!--닉네임-->
         <input type="text" id="nickname" class="input-wrapper" aria-label="닉네임" placeholder="닉네임"
                th:field="*{nickname}"/>
-        <!--아이디-->
-        <div class="email-verification">
-            <input type="text" id="id" class="input-wrapper" aria-label="아이디" placeholder="아이디" th:field="*{id}">
-            <button type="button" class="verification-button" onclick="checkIdAvailability()">중복확인</button>
-        </div>
-        <!--"중복확인"버튼으로 아이디를 확인-->
-        <script th:inline="javascript">
-            function checkIdAvailability() {
-                // 입력 필드에서 ID 값을 가져옴
-                var id = document.getElementById('id').value;
-
-                // ID가 비어 있지 않으면 요청을 보냄
-                if (id) {
-                    fetch('/check-id', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            // Spring Security에서 CSRF 토큰 헤더를 사용하면 헤더를 추가
-                            'X-CSRF-TOKEN': /*[[${_csrf.token}]]*/ 'token'
-                        },
-                        body: JSON.stringify({'id': id})
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.available) {
-                                alert('ID를 사용할 수 있습니다.');
-                            } else {
-                                alert('ID가 이미 존재합니다.');
-                            }
-                        }).catch(error => {
-                        console.error('ERROR:', error);
-                    });
-                } else {
-                    alert('ID를 확인하려면 ID를 입력하세요.');
-                }
-            }
-        </script>
         <!--이메일-->
-        <input type="email" id="email" class="input-wrapper" aria-label="이메일" placeholder="이메일" th:field="*{email}"/>
-        <!--비밀번호-->
-        <input type="password" id="password" class="input-wrapper" aria-label="비밀번호" placeholder="비밀번호" th:field="*{password}"/>
+        <input type="email" id="email" class="input-wrapper" aria-label="이메일" placeholder="이메일" th:field="*{email}" disabled/>
         <!--연령대-->
         <div class="age-group-section" id="age">
-            <select class="input-wrapper" th:field="*{age}" style="padding-left: 13px">
+            <select class="input-wrapper" th:field="*{userAge}" style="padding-left: 13px">
                 <option value="">연령대</option>
-                <option value="10대">10대</option>
-                <option value="20대">20대</option>
-                <option value="30대">30대</option>
-                <option value="40대">40대</option>
-                <option value="50대">50대</option>
-                <option value="60대 이상">60대 이상</option>
+                <option value="10">10대</option>
+                <option value="20">20대</option>
+                <option value="30">30대</option>
+                <option value="40">40대</option>
+                <option value="50">50대</option>
+                <option value="60">60대 이상</option>
             </select>
         </div>
        <!--특이사항-->
@@ -177,10 +138,10 @@
             <section class="input-wrapper" id="takingMedicine">
                 <span>알러지 유무</span>
                 <label class="section_text">
-                    <input type="radio" name="allergies" value="yes" th:field="*{allergies}"> 있음
+                    <input type="radio" name="allergies" value="yes" th:field="*{allergy}"> 있음
                 </label>
                 <label>
-                    <input type="radio" name="allergies" value="no" th:field="*{allergies}"> 없음
+                    <input type="radio" name="allergies" value="no" th:field="*{allergy}"> 없음
                 </label>
             </section>
         </div>

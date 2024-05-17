@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/templates/images/img_6.png" type="image/x-icon">
+    <link rel="icon" href="/images/img_6.png" type="image/x-icon">
     <title>이메일 변경 페이지</title>
     <style>
         .container {
@@ -85,7 +85,7 @@
 </head>
 <body>
 <div class="container">
-    <img src="/templates/images/img.png" alt="Logo" class="image"/>
+    <img src="/images/img.png" alt="Logo" class="image"/>
     <div class="title">이메일 변경</div>
     <form id="emailChangeForm" th:action="@{/change-email}" th:object="${emailChange}" method="post">
         <input type="email" id="email" class="input-wrapper" aria-label="이메일" placeholder="전 이메일" th:field="*{email}"/>
