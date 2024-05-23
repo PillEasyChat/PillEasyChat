@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <style>
+        .screen {
+            background-color : #ffffff;
+            display : flex;
+            flex-direction : row;
+            justify-content : center;
+            width : 100%;
+        }
+
+        .screen .div{
+            background-color : #ffffff;
+            width : 393px;
+            height : 852px;
+            position : relative;
+        }
+
+        .screen .overlap-group{
+            position : absolute;
+            width : 393px;
+            height : 115px;
+            top : 267px;
+            left : 0;
+        }
+
+        .screen .frame {
+            display : inline-flex;
+            flex-direction : column;
+            align-items : center;
+            position : absolute;
+            top : 20px;
+            left : 35px;
+        }
+
+        .screen .text-wrapper{
+            position: relative;
+            width: fit-content;
+            margin-top: -1px;
+            font-family: "Inter-Bold", Helvetica;
+            font-weight: 700;
+            font-size: 22px;
+            line-height: 33.6px;
+            color: #000000;
+            letter-spacing: 0;
+            white-space: nowrap;
+        }
+
+        .screen .p {
+            position : relative;
+            width : fit-content;
+            font-family : "Inter-Bold", Helvetica;
+            font-weight : 600;
+            color : #000000;
+            font-size : 17px;
+            letter-spacing : 0;
+            line-height : 28px;
+            white-space : nowrap;
+        }
+
+        .screen .rectangle {
+            position : absoulte;
+            width : 393px;
+            height : 115px;
+            top:0;
+            left : 0;
+            background-color : #0f590952;
+        }
+
+        .screen .text-wrapper-2{
+            position : absolute;
+            height : 17px;
+            top : 816px;
+            left : 167px;
+            font-family : "Inter-Regular", Helvetica;
+            font-weight : 400;
+            font-size : 12px;
+            line-height : 16.8px;
+            color : #000000;
+            letter-spacing : 0;
+            white-space : nowrap;
+        }
+
+        .screen .text-wrapper-3 {
+            position : absolute;
+            height : 22px;
+            top : 450px;
+            left : 80px;
+            font-family : "Inter-Bold", Heivetica;
+            font-weight : 700;
+            font-size : 16px;
+            line-height : 22.4px;
+            color : #000000;
+            letter-spacing : 0;
+            white-space : nowrap;
+        }
+
+        .screen .element {
+            position : absolute;
+            width : 283px;
+            height : 102px;
+            top : 125px;
+            left : 57px;
+            object-fit : cover;
+        }
+
+        button{
+            background-color: #000000;
+            color: #ffffff;
+            font-family: "Inter-Regular", Helvetica;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="screen">
+    <div class="div">
+        <div class="overlap-group">
+            <div class="frame">
+                <div class="text-wrapper">반갑습니다!</div>
+                <p class="p">Pill Easy Chat 회원이 되신 걸 환영합니다</p>
+            </div>
+            <div class="rectangle"></div>
+        </div>
+        <div class="text-wrapper-2">ⓒ 필이지챗</div>
+        <div class="text-wrapper-3">
+            <button onclick="location.href='login.html'">로그인 하기</button>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;<button onclick="location.href='랜딩페이지.html'">메인화면으로</button>
+        </div>
+        <img class="element" src="/images/logo.png" />
+    </div>
+</div>
+</body>
+</html>

@@ -1,10 +1,143 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/images/img_6.png" type="image/x-icon">
+    <title>마이페이지</title>
+    <style>
+        .container {
+            border-radius: 35px;
+            background-color: #fff;
+            display: flex;
+            max-width: 392px;
+            width: 386px;
+            flex-direction: column;
+            align-items: center;
+            color: #000;
+            font-weight: 700;
+            line-height: 140%;
+            height: 846px;
+            margin: 0 auto;
+        }
+
+        .user-info {
+            display: flex;
+            padding: 25px 25px;
+            justify-content: space-between;
+            text-align: center;
+            width: 100%;
+        }
+
+        .menu-item {
+            width: 100%;
+            display: flex;
+            gap: 20px;
+            padding: 27px 25px;
+            justify-content: space-between;
+        }
+
+        .logout-section {
+            align-self: end;
+            font: 700 18px Inter, sans-serif;
+            border: none;
+            color: blue;
+            width: 100%;
+            background-color: white;
+            margin-top: 20px;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        .avatar-section {
+            background-color: #d9d9d9;
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            margin: 50px auto 0;
+            background-size: cover;
+            background-position: center center;
+        }
+
+        .user-name {
+            text-align: center;
+            margin-top: 20px;
+            margin-right: 90px;
+            font: bold 24px Arial, sans-serif;
+        }
+
+        .menu-item:not(:last-child) {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-item {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-item button {
+            background: none;
+            border: none;
+            text-align: left;
+            flex-grow: 1;
+            font: 700 26px Inter, sans-serif;
+            color: #000;
+            cursor: pointer;
+        }
+
+        .menu-arrow {
+            font: 400 36px Inter, sans-serif;
+        }
+
+        .footer-text {
+            font: 400 12px Inter, sans-serif;
+            margin-top: 20px;
+        }
+
+        .profile-image {
+            width: 65px;
+            aspect-ratio: 1.37;
+            margin-left: 100px;
+        }
+
+        .Leave {
+            text-align: center;
+            color: blue;
+            margin-top: 100px;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-  <p>mypage</p>
+<div class="container">
+    <div class="avatar-section"
+         th:style="'background-image:url(' +
+     (${userAvatar} != null ? ${userAvatar} : '/templates/images/img_6.png') +
+     ');'">
+    </div>
+    <div class="user-info">
+        <img src="/images/img_6.png" alt="User's Profile Picture" class="profile-image"/>
+        <div class="user-name" th:text="${name} + '님'">필이지챗님</div>
+    </div>
+    <div class="menu-item">
+        <button onclick="handleInfo()" class="menu-title">내 정보 관리</button>
+        <div class="menu-arrow">&gt;</div>
+    </div>
+    <div class="menu-item">
+        <button onclick="handleHistory()" class="menu-title">질문 히스토리</button>
+        <div class="menu-arrow">&gt;</div>
+    </div>
+    <div class="menu-item">
+        <button onclick="handleInquiries()" class="menu-title">문의사항</button>
+        <div class="menu-arrow">&gt;</div>
+    </div>
+    <button onclick="handleLogout()" class="logout-section">로그아웃</button>
+    <a href="#" class="Leave"> 회원 탈퇴하기</a>
+    <div class="footer-text">ⓒ 필이지챗</div>
+</div>
 </body>
 </html>
