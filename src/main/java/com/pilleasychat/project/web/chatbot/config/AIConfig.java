@@ -41,7 +41,7 @@ public class AIConfig {
     @Bean
     public ChatLanguageModel chatLanguageModel() {
         return OpenAiChatModel.builder()
-                .apiKey("sk-proj-Xb8Gt0rNLWYe3F5ALWFPT3BlbkFJXdcijVCwhkIuNMxk9rYM")
+                .apiKey("api-key 입력")
                 .modelName("ft:gpt-3.5-turbo-0125:personal:thirdtest:9TP0DJuv")
                 .build();
     }

@@ -54,26 +54,12 @@ public class LangChain4jConfig {
     @Bean
     public EmbeddingModel embeddingModel() {
         return OpenAiEmbeddingModel.builder()
-                .apiKey("sk-proj-Xb8Gt0rNLWYe3F5ALWFPT3BlbkFJXdcijVCwhkIuNMxk9rYM")
+                .apiKey("api-key 입력")
                 .modelName("text-embedding-3-large")
                 .dimensions(512)
                 .tokenizer(openAiTokenizer())
                 .build();
     }
-
-    //@Autowired
-    //private ChatLanguageModel chatLanguageModel;
-
-    /*
-    @Bean
-    StreamingChatLanguageModel streamingChatLanguageModel() {
-        return OpenAiStreamingChatModel.builder()
-                .apiKey("sk-proj-OtW1RXHzcGmbRk42LfwBT3BlbkFJN0hoa0s3OiwHXnJ1x7wj")
-                .modelName("ft:gpt-3.5-turbo-0125:personal:thirdtest:9TP0DJuv")
-                .build();
-    }
-    */
-
 
     @Bean
     public OpenAiTokenizer openAiTokenizer() {

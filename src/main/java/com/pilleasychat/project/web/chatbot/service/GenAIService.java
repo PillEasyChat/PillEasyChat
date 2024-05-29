@@ -14,10 +14,6 @@ import java.util.List;
 
 public interface GenAIService {
 
-    //String getResponseEx(ChatRequest request);
-
-    //String chat(ChatRequest request);
-
     String getResponse(ChatRequest request);
 
     //String chatWithPdf(String text);

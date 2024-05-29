@@ -34,14 +34,6 @@ public class GenAIServiceImpl implements GenAIService{
     //private final ConversationalRetrievalChain conversationalRetrievalChain;
     private final EmbeddingStore<TextSegment> embeddingStore;
     private final EmbeddingModel embeddingModel;
-    //private final CustomerSupportAgent customerSupportAgent;
-
-    /*
-    @Override
-    public String chat(ChatRequest request) {
-        return customerSupportAgent.chat(request.userId(), request.question());
-    }
-    */
 
     @Override
     public String getResponse(ChatRequest request) {
@@ -64,27 +56,9 @@ public class GenAIServiceImpl implements GenAIService{
         return embeddingStore.findRelevant(queryEmbedding, maxResults);
     }
 
-    /*
-    @Override
-    public TokenStream lcGetResponse(int memoryId, String userMessage) {
-        return lcAssistant;
-    }
-    */
-
-
     @Override
     public UserModel getUserModelFromId(int id) {
         return assistant.extractUserFromId(id);
     }
 
-    public String getResponseExample(ChatRequest request) {
-        ArrayList<ChatMessage> messages = new ArrayList<>();
-        messages.add(SystemMessage.systemMessage("Respond in Korean"));
-        messages.add(UserMessage.userMessage(request.question()));
-        var model = OpenAiChatModel.builder()
-                .apiKey("demo")
-                .modelName(OpenAiChatModelName.GPT_3_5_TURBO)
-                .build();
-        return model.generate(messages).content().text();
-    }
 }
