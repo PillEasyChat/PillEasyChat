@@ -1,6 +1,11 @@
 package com.pilleasychat.project.web.chatbot.config;
 
+import com.pilleasychat.project.web.chatbot.service.CustomerSupportAgent;
+import dev.langchain4j.data.document.Document;
+import dev.langchain4j.data.document.DocumentSplitter;
+import dev.langchain4j.data.document.splitter.DocumentSplitters;
 import dev.langchain4j.data.embedding.Embedding;
+import dev.langchain4j.memory.chat.TokenWindowChatMemory;
 import dev.langchain4j.model.chat.StreamingChatLanguageModel;
 import dev.langchain4j.model.openai.OpenAiEmbeddingModel;
 import dev.langchain4j.model.openai.OpenAiStreamingChatModel;
@@ -11,6 +16,7 @@ import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.rag.content.retriever.ContentRetriever;
 import dev.langchain4j.rag.content.retriever.EmbeddingStoreContentRetriever;
+import dev.langchain4j.service.AiServices;
 import dev.langchain4j.store.embedding.EmbeddingStore;
 import dev.langchain4j.store.embedding.chroma.ChromaEmbeddingStore;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -32,13 +38,12 @@ import static dev.langchain4j.data.document.loader.FileSystemDocumentLoader.load
 import static dev.langchain4j.data.document.splitter.DocumentSplitters.recursive;
 
 @Configuration
-@Import(AIConfig.class)
 public class LangChain4jConfig {
 
     private final ChromaDBContainer chroma = new ChromaDBContainer("chromadb/chroma:0.4.22");
 
     @Bean
-    EmbeddingStore<TextSegment> embeddingStore() {
+    public EmbeddingStore<TextSegment> embeddingStore() {
         //chroma.start();
         return ChromaEmbeddingStore.builder()
                 .baseUrl("http://localhost:8000/")
@@ -47,16 +52,19 @@ public class LangChain4jConfig {
     }
 
     @Bean
-    EmbeddingModel embeddingModel() {
+    public EmbeddingModel embeddingModel() {
         return OpenAiEmbeddingModel.builder()
-                .apiKey("sk-proj-OtW1RXHzcGmbRk42LfwBT3BlbkFJN0hoa0s3OiwHXnJ1x7wj")
-                .modelName("text-embedding-ada-002")
+                .apiKey("sk-proj-Xb8Gt0rNLWYe3F5ALWFPT3BlbkFJXdcijVCwhkIuNMxk9rYM")
+                .modelName("text-embedding-3-large")
+                .dimensions(512)
+                .tokenizer(openAiTokenizer())
                 .build();
     }
 
-    @Autowired
-    private ChatLanguageModel chatLanguageModel;
+    //@Autowired
+    //private ChatLanguageModel chatLanguageModel;
 
+    /*
     @Bean
     StreamingChatLanguageModel streamingChatLanguageModel() {
         return OpenAiStreamingChatModel.builder()
@@ -64,12 +72,13 @@ public class LangChain4jConfig {
                 .modelName("ft:gpt-3.5-turbo-0125:personal:thirdtest:9TP0DJuv")
                 .build();
     }
+    */
+
 
     @Bean
     public OpenAiTokenizer openAiTokenizer() {
         return new OpenAiTokenizer("gpt-3.5-turbo");
     }
-
 
     public List<String> splitText(String text) {
         List<String> chunks = new ArrayList<>();
@@ -109,8 +118,8 @@ public class LangChain4jConfig {
             List<String> documents = splitDocuments(textContent);
             for (String d : documents) {
                 List<String> chunks = splitText(d);
-                System.out.println(chunks);
-                System.out.println("\n");
+                //System.out.println(chunks);
+                //System.out.println("\n");
                 TextSegment segmentChroma = TextSegment.from(chunks.getFirst());
                 Embedding embeddingChroma = embeddingModel.embed(segmentChroma).content();
                 embeddingStore.add(embeddingChroma, segmentChroma);
@@ -140,13 +149,6 @@ public class LangChain4jConfig {
                     currentDocument.setLength(0);
                 }
             }
-            // "bizrno"로 끝나는 문서 종료
-            /*
-            if (line.trim().startsWith("bizrno")) {
-                currentDocument.append(line).append("\n");
-                documents.add(currentDocument.toString().trim());
-                currentDocument.setLength(0);
-            }*/
             currentDocument.append(line).append("\n");
         }
 
@@ -159,18 +161,18 @@ public class LangChain4jConfig {
     }
 
     @Bean
-    ContentRetriever contentRetriever(
+    public ContentRetriever contentRetriever(
             EmbeddingStore<TextSegment> embeddingStore,
             EmbeddingModel embeddingModel
     ) {
         return EmbeddingStoreContentRetriever.builder()
                 .embeddingStore(embeddingStore)
                 .embeddingModel(embeddingModel)
-                .maxResults(2)
-                .minScore(0.8)
+                .maxResults(1)
+                .minScore(0.7)
                 .build();
     }
-
+    /*
     @Bean
     public ConversationalRetrievalChain conversationalRetrievalChain(
             EmbeddingStore<TextSegment> embeddingStore,
@@ -182,12 +184,13 @@ public class LangChain4jConfig {
                 .contentRetriever(contentRetriever(embeddingStore, embeddingModel))
                 .build();
     }
-    /*
+
     @Bean
     public CustomerSupportAgent customerSupportAgent(
             ChatLanguageModel chatLanguageModel,
             OpenAiTokenizer openAiTokenizer,
-            ContentRetriever contentRetriever
+            EmbeddingModel embeddingModel,
+            EmbeddingStore<TextSegment> embeddingStore
     ) {
         return AiServices.builder(CustomerSupportAgent.class)
                 .chatLanguageModel(chatLanguageModel)
@@ -195,9 +198,10 @@ public class LangChain4jConfig {
                         .id(chatId)
                         .maxTokens(500, openAiTokenizer)
                         .build())
-                .contentRetriever(contentRetriever)
+                .contentRetriever(contentRetriever(embeddingStore, embeddingModel))
                 .build();
     }
+
 
     @Bean
     CommandLineRunner docToEmbedding(

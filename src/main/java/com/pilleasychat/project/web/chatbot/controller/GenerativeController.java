@@ -32,12 +32,12 @@ public class GenerativeController {
         return new ChatResponse(genAIService.chat(request));
     }
     */
-
+    /*
     @PostMapping("/pdf")
     public String chatWithPdf(@RequestBody String text) {
         return genAIService.chatWithPdf(text);
     }
-
+    */
     @PostMapping("/pdf2")
     public String chatWithPdf2(@RequestBody String text) {
         List<EmbeddingMatch<TextSegment>> search = genAIService.search(text, 1);
@@ -48,4 +48,6 @@ public class GenerativeController {
     public UserModel getUserModelFromId(@RequestBody ChatRequest request) {
         return genAIService.getUserModelFromId(request.userId());
     }
+
+
 }

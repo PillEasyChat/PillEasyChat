@@ -20,7 +20,7 @@ public interface GenAIService {
 
     String getResponse(ChatRequest request);
 
-    String chatWithPdf(String text);
+    //String chatWithPdf(String text);
 
     List<EmbeddingMatch<TextSegment>> search(String query, int maxResults);
     //TokenStream lcGetResponse(int memoryId, String userMessage);

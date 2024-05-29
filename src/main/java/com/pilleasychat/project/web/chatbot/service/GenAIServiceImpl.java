@@ -31,7 +31,7 @@ import java.util.List;
 public class GenAIServiceImpl implements GenAIService{
 
     private final Assistant assistant;
-    private final ConversationalRetrievalChain conversationalRetrievalChain;
+    //private final ConversationalRetrievalChain conversationalRetrievalChain;
     private final EmbeddingStore<TextSegment> embeddingStore;
     private final EmbeddingModel embeddingModel;
     //private final CustomerSupportAgent customerSupportAgent;
@@ -47,7 +47,7 @@ public class GenAIServiceImpl implements GenAIService{
     public String getResponse(ChatRequest request) {
        return assistant.chat(request.userId(), request.question());
     }
-
+    /*
     @Override
     public String chatWithPdf(@RequestBody String text) {
         //log.debug("Answer is - {}", answer);
@@ -57,7 +57,7 @@ public class GenAIServiceImpl implements GenAIService{
             return conversationalRetrievalChain.execute(text);
         }
     }
-
+    */
     @Override
     public List<EmbeddingMatch<TextSegment>> search(String query, int maxResults) {
         Embedding queryEmbedding = embeddingModel.embed(query).content();
