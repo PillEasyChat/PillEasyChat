@@ -66,8 +66,7 @@ public class SignupServiceImpl implements SignupService {
     }
 
     @Override
-    public void update(UserDto userDto) {
-        User user = userRepository.findByEmail(userDto.getEmail()).orElse(null);
+    public void update(User user, UserDto userDto) {
         user.setName(userDto.getName());
         user.setAge(userDto.getUserAge());
         user.setAllergy(userDto.getAllergy());

@@ -44,7 +44,7 @@ public class SignupController {
     @PostMapping("")
     public String signup(@ModelAttribute("user") UserDto user) {
         signupService.register(user);
-        return "redirect:/";
+        return "redirect:/signup/success";
     }
 
     @GetMapping("/additional")
@@ -59,8 +59,15 @@ public class SignupController {
     }
 
     @PostMapping("/additional")
-    public String additional(@ModelAttribute("user") UserDto user) {
-        signupService.update(user);
+    public String additional(@ModelAttribute UserDto userDto, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        User user = signupService.findByEmail((String)session.getAttribute("userEmail"));
+        signupService.update(user, userDto); //오류 발생. user가 null
         return "redirect:/";
+    }
+
+    @GetMapping("/success")
+    public String success(){
+        return "html/signup/loginFinish";
     }
 }
