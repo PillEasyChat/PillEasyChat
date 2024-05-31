@@ -22,6 +22,7 @@ import dev.langchain4j.store.embedding.chroma.ChromaEmbeddingStore;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,6 +42,8 @@ import static dev.langchain4j.data.document.splitter.DocumentSplitters.recursive
 public class LangChain4jConfig {
 
     private final ChromaDBContainer chroma = new ChromaDBContainer("chromadb/chroma:0.4.22");
+    @Value("${spring.api.api-key}")
+    private String apiKey;
 
     @Bean
     public EmbeddingStore<TextSegment> embeddingStore() {
@@ -54,7 +57,7 @@ public class LangChain4jConfig {
     @Bean
     public EmbeddingModel embeddingModel() {
         return OpenAiEmbeddingModel.builder()
-                .apiKey("sk-proj-1RBVLwxKzQ5MkmN5q25ST3BlbkFJ9q8QegyE91AIwM3yIduv")
+                .apiKey(apiKey)
                 .modelName("text-embedding-3-large")
                 .dimensions(512)
                 .tokenizer(openAiTokenizer())

@@ -15,8 +15,8 @@ import dev.langchain4j.rag.content.retriever.ContentRetriever;
 import dev.langchain4j.service.AiServices;
 import dev.langchain4j.store.embedding.EmbeddingStore;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -27,6 +27,9 @@ import org.springframework.context.annotation.Import;
 public class AIConfig {
 
     private final ContentRetriever contentRetriever;
+
+    @Value("${spring.api.api-key}")
+    private String apiKey;
 
     @Bean
     public Assistant assistant(
@@ -41,7 +44,7 @@ public class AIConfig {
     @Bean
     public ChatLanguageModel chatLanguageModel() {
         return OpenAiChatModel.builder()
-                .apiKey("sk-proj-1RBVLwxKzQ5MkmN5q25ST3BlbkFJ9q8QegyE91AIwM3yIduv")
+                .apiKey(apiKey)
                 .modelName("ft:gpt-3.5-turbo-0125:personal:thirdtest:9TP0DJuv")
                 .build();
     }
