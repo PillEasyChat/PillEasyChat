@@ -5,7 +5,10 @@ import com.pilleasychat.project.domain.entity.User;
 import com.pilleasychat.project.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Random;
 
 @Service
 @Slf4j
@@ -15,16 +18,34 @@ public class SignupServiceImpl implements SignupService {
     private final UserRepository userRepository;
     @Override
     public void register(UserDto userdto) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         User user = dtoToEntity(userdto);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
     @Override
     public User createUser(String email, String name) {
+        StringBuffer key = new StringBuffer();
+        Random rnd = new Random();
+        for (int i = 0; i < 6; i++) {
+            int index = rnd.nextInt(3);
+            switch (index) {
+                case 0:
+                    key.append(((int) (rnd.nextInt(26)) + 97));
+                    break;
+                case 1:
+                    key.append(((int) (rnd.nextInt(26)) + 65));
+                    break;
+                case 2:
+                    key.append((rnd.nextInt(10)));
+                    break;
+            }
+        }
         User user = User.builder()
                 .name(name)
                 .email(email)
-                .password("password")
+                .password(key.toString())
                 .build();
         userRepository.save(user);
 
