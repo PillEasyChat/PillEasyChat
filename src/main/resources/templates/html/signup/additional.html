@@ -1,10 +1,159 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>회원가입 페이지</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/images/img_6.png" type="image/x-icon">
+    <style>
+        .container {
+            border-radius: 35px;
+            background-color: #fff;
+            display: flex;
+            max-width: 392px;
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            color: #000;
+            font-weight: 700;
+            line-height: 140%;
+            height: 852px;
+            margin: 0 auto;
+        }
+
+        .signup-title {
+            color: #000;
+            align-self: center;
+            margin-top: 17px;
+            font-size: 28px;
+        }
+
+        .input-wrapper {
+            margin-top: 10px;
+            border: 1px solid #000;
+            background-color: #fff;
+            padding: 16px 17px;
+            font-size: 18px;
+            width: 100%;
+            height: 55px;
+            box-sizing: border-box;
+            color: #847f7f;
+        }
+
+        .email-verification {
+            display: flex;
+            gap: 14px;
+        }
+
+        .verification-button {
+            width: 110px;
+            height: 54px;
+            margin-top: 10px;
+            background-color: black;
+            color: white;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .allergies-section fieldset legend {
+            font-size: 18px;
+            color: #847f7f;
+        }
+
+        section > span {
+            margin-right: 80px;
+        }
+
+        .section_text {
+            margin-right: 30px;
+        }
+
+        .sign-up-button {
+            background-color: #000;
+            color: #fff;
+            margin-top: 30px;
+            padding: 16px;
+            font-size: 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .footer-text {
+            color: #000;
+            align-self: center;
+            margin-top: 20px;
+            font-size: 12px;
+        }
+
+        .close {
+            color: blue;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            margin-top: 30px;
+        }
+    </style>
 </head>
 <body>
-  <p>additional</p>
+<section class="container">
+    <h1 class="signup-title">회원가입</h1>
+    <!--form SignUp-->
+    <form action="" th:action th:object="${user}" method="post">
+        <!--이름-->
+        <input type="text" id="name" class="input-wrapper" aria-label="이름" placeholder="이름" th:field="*{name}"/>
+        <!--닉네임-->
+        <input type="text" id="nickname" class="input-wrapper" aria-label="닉네임" placeholder="닉네임"
+               th:field="*{nickname}"/>
+        <!--이메일-->
+        <input type="email" id="email" class="input-wrapper" aria-label="이메일" placeholder="이메일" th:field="*{email}" disabled/>
+        <!--연령대-->
+        <div class="age-group-section" id="age">
+            <select class="input-wrapper" th:field="*{userAge}" style="padding-left: 13px">
+                <option value="">연령대</option>
+                <option value="10">10대</option>
+                <option value="20">20대</option>
+                <option value="30">30대</option>
+                <option value="40">40대</option>
+                <option value="50">50대</option>
+                <option value="60">60대 이상</option>
+            </select>
+        </div>
+       <!--특이사항-->
+        <div class="additional-info" id="specialNote">
+            <select class="input-wrapper" th:field="*{specialNote}" style="padding-left: 13px">
+                <option value="">특이사항</option>
+                <option value="임산부">임산부</option>
+                <option value="노약자">노약자</option>
+                <option value="장애인">장애인</option>
+                <option value="어린 자녀를 둔 부모">어린 자녀를 둔 부모</option>
+            </select>
+        </div>
+        <!--알러지 유무-->
+        <div class="allergies-section" id="allergy" style="font-weight: normal;">
+            <section class="input-wrapper" id="takingMedicine">
+                <span>알러지 유무</span>
+                <label class="section_text">
+                    <input type="radio" name="allergies" value="yes" th:field="*{allergy}"> 있음
+                </label>
+                <label>
+                    <input type="radio" name="allergies" value="no" th:field="*{allergy}"> 없음
+                </label>
+            </section>
+        </div>
+        <!--복용하고 있는 약-->
+        <input type="text" id="takingMedication" class="input-wrapper" aria-label="복용하고 있는 약" placeholder="복용하고 있는 약"
+               th:field="*{takingMedication}"/>
+        <!--회원가입 버튼-->
+        <button type="submit" class="sign-up-button">회원가입</button>
+    </form>
+    <!--전페이지로 돌아감-->
+    <a href="javascript:history.back()" class="close">취소</a>
+    <footer class="footer-text">ⓒ 필이지챗</footer>
+</section>
 </body>
 </html>

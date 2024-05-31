@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/images/img_6.png" type="image/x-icon">
+    <title>문의사항 페이지</title>
+    <style>
+        .container {
+            border-radius: 35px;
+            background-color: #fff;
+            display: flex;
+            max-width: 382px;
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            font-size: 21px;
+            color: #000;
+            font-weight: 700;
+            line-height: 140%;
+            margin: 0 auto;
+        }
+
+        .title {
+            text-align: center;
+            font: 32px Inter, sans-serif;
+            font-weight: bold;
+            margin-top: 30px;
+        }
+
+        .subtitle, .question {
+            text-align: center;
+            font-family: Inter, sans-serif;
+            margin-top: 25px;
+        }
+
+        .details {
+            text-align: center;
+            font-family: Inter, sans-serif;
+            font-weight: 300;
+            margin-top: 10px;
+            margin-bottom: 30px;
+        }
+
+        .option {
+            font-family: Inter, sans-serif;
+            border: 1px solid rgba(0, 0, 0, 1);
+            background-color: #fff;
+            align-self: stretch;
+            width: 100%;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+            padding: 25px 60px;
+            cursor: pointer;
+            outline: none;
+            margin-top: 10px;
+            border-radius: 10px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .cancel-btn {
+            color: blue;
+            text-align: center;
+            margin-top: 200px;
+            font: 18px Inter, sans-serif;
+            cursor: pointer;
+            border: none;
+            background: none;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footerText {
+            margin-top: 20px;
+            font: 400 12px Inter, sans-serif;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="title">문의사항</div>
+    <div class="subtitle">무슨 일이신가요?</div>
+    <div class="details">해당되는 항목을 골라주세요</div>
+    <button class="option" onclick="sendEmail('챗봇 서비스')">챗봇 서비스</button>
+    <button class="option" onclick="sendEmail('오류 신고')">오류 신고</button>
+    <button class="option" onclick="sendEmail('개선 사항')">개선 사항</button>
+    <button class="option" onclick="sendEmail('기타 문의')">기타 문의</button>
+    <a href="javascript:history.back()" class="cancel-btn">돌아간다</a>
+    <div class="footerText">ⓒ 필이지챗</div>
+</div>
+<script>
+    function sendEmail(option) {
+        var email = 'pilleasychat@gmail.com';
+        var subject = encodeURIComponent(option);
+        var emailBody = encodeURIComponent('내용을 여기에 입력하세요...\n');
+        window.location = 'mailto:' + email + '?subject=' + subject + '&body=' + emailBody;
+    }
+</script>
+</body>
+</html>
