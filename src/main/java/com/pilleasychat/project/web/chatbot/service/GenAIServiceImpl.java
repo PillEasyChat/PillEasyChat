@@ -36,8 +36,8 @@ public class GenAIServiceImpl implements GenAIService{
     private final EmbeddingModel embeddingModel;
 
     @Override
-    public String getResponse(ChatRequest request) {
-       return assistant.chat(request.userId(), request.question());
+    public String getResponse(Long userId, ChatRequest request) {
+       return assistant.chat(userId.intValue(), request.getMessage());
     }
     /*
     @Override

@@ -175,7 +175,7 @@
     position: fixed;
     width: 300px;
     height: 100%;
-    background-color: gray;
+    background-color: grey;
     right: -300px;
     /* left: -300px; */
     transition: all 300ms;
@@ -200,7 +200,7 @@
     }
 
     .back-button:hover {
-    border-color: gray;
+    border-color: grey;
     }
 
     .circle {
@@ -381,16 +381,31 @@
     }
 
     //유저가 챗봇에게 메시지 보내는 함수
-    function sendUserMessage() {
+    async function sendUserMessage() {
         const message = userInput.value;
         if (message.trim() === '') return;
         sendMessage(message, 'user');
 
         // 여기서 챗봇의 응답을 받아오고, 받아온 응답을 sendMessage 함수를 이용해서 화면에 표시
         //api 연결 필요함
-        setTimeout(() => {
-            sendBotMessage(message + '의 대답');
-        }, 500);
+        try {
+            const response = await fetch('/api/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                sendBotMessage(data.response); // 서버로부터의 응답을 표시
+            } else {
+                sendBotMessage('서버 오류가 발생했습니다.');
+            }
+        } catch (error) {
+            sendBotMessage('네트워크 오류가 발생했습니다.');
+        }
 
         userInput.value = '';
     }

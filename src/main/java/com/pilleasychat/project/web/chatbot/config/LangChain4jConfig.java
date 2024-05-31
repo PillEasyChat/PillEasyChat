@@ -44,7 +44,7 @@ public class LangChain4jConfig {
 
     @Bean
     public EmbeddingStore<TextSegment> embeddingStore() {
-        //chroma.start();
+//        chroma.start();
         return ChromaEmbeddingStore.builder()
                 .baseUrl("http://localhost:8000/")
                 .collectionName("my_collection")
@@ -54,7 +54,7 @@ public class LangChain4jConfig {
     @Bean
     public EmbeddingModel embeddingModel() {
         return OpenAiEmbeddingModel.builder()
-                .apiKey("api-key 입력")
+                .apiKey("sk-proj-1RBVLwxKzQ5MkmN5q25ST3BlbkFJ9q8QegyE91AIwM3yIduv")
                 .modelName("text-embedding-3-large")
                 .dimensions(512)
                 .tokenizer(openAiTokenizer())

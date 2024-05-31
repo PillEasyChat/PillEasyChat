@@ -23,10 +23,10 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import(LangChain4jConfig.class)
+@RequiredArgsConstructor
 public class AIConfig {
 
-    @Autowired
-    private ContentRetriever contentRetriever;
+    private final ContentRetriever contentRetriever;
 
     @Bean
     public Assistant assistant(
@@ -41,7 +41,7 @@ public class AIConfig {
     @Bean
     public ChatLanguageModel chatLanguageModel() {
         return OpenAiChatModel.builder()
-                .apiKey("api-key 입력")
+                .apiKey("sk-proj-1RBVLwxKzQ5MkmN5q25ST3BlbkFJ9q8QegyE91AIwM3yIduv")
                 .modelName("ft:gpt-3.5-turbo-0125:personal:thirdtest:9TP0DJuv")
                 .build();
     }
