@@ -9,5 +9,5 @@ public interface SignupService {
     User findByEmail(String email);
     User dtoToEntity(UserDto user);
     UserDto entityToDto(User user);
-    void update(UserDto userDto);
+    void update(User user, UserDto userDto);
 }

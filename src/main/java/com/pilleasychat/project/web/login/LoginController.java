@@ -54,4 +54,14 @@ public class LoginController {
         session.setMaxInactiveInterval(1800);
         return "redirect:/";
     }
+
+    @GetMapping("/findId")
+    public String findId(){
+        return "html/login/findidpage";
+    }
+
+    @GetMapping("/findPassword")
+    public String findPassword(){
+        return "html/login/findpasswordpage";
+    }
 }
