@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/home")
+@RequestMapping("/")
 public class homeController {
 
 //    SignupService signupService;

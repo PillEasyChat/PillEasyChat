@@ -134,17 +134,8 @@
             </select>
         </div>
         <!--알러지 유무-->
-        <div class="allergies-section" id="allergy" style="font-weight: normal;">
-            <section class="input-wrapper" id="takingMedicine">
-                <span>알러지 유무</span>
-                <label class="section_text">
-                    <input type="radio" name="allergies" value="yes" th:field="*{allergy}"> 있음
-                </label>
-                <label>
-                    <input type="radio" name="allergies" value="no" th:field="*{allergy}"> 없음
-                </label>
-            </section>
-        </div>
+        <input type="text" id="allergy" class="input-wrapper" aria-label="약품 알러지" placeholder="약품 알러지(없으면 없음)"
+               th:field="*{allergy}"/>
         <!--복용하고 있는 약-->
         <input type="text" id="takingMedication" class="input-wrapper" aria-label="복용하고 있는 약" placeholder="복용하고 있는 약"
                th:field="*{takingMedication}"/>

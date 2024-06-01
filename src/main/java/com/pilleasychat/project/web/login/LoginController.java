@@ -52,7 +52,7 @@ public class LoginController {
         session.setAttribute("userName", user.getNickname());
         session.setAttribute(SessionConst.LOGIN_MEMBER, user);
         session.setMaxInactiveInterval(1800);
-        return "redirect:/";
+        return "redirect:/chat";
     }
 
     @GetMapping("/findId")
@@ -63,5 +63,14 @@ public class LoginController {
     @GetMapping("/findPassword")
     public String findPassword(){
         return "html/login/findpasswordpage";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        return "redirect:/";
     }
 }

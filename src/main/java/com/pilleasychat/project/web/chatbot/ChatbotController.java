@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class ChatbotController {
-    @GetMapping("/")
+    @GetMapping("/chat")
     public String chat() {
         return "html/chatbot/chatbot";
     }

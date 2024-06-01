@@ -116,12 +116,12 @@
 <div class="container">
     <div class="avatar-section"
          th:style="'background-image:url(' +
-     (${userAvatar} != null ? ${userAvatar} : '/templates/images/img_6.png') +
+     (${user} != null ? ${user} : 'images/img_6.png') +
      ');'">
     </div>
     <div class="user-info">
         <img src="/images/img_6.png" alt="User's Profile Picture" class="profile-image"/>
-        <div class="user-name" th:text="${name} + '님'">필이지챗님</div>
+        <div class="user-name" th:text="${user.nickname} + '님'">필이지챗님</div>
     </div>
     <div class="menu-item">
         <button onclick="handleInfo()" class="menu-title">내 정보 관리</button>
@@ -140,4 +140,19 @@
     <div class="footer-text">ⓒ 필이지챗</div>
 </div>
 </body>
+<script>
+    function handleInfo() {
+        window.location.href = "/mypage/update";
+    }
+    function handleHistory() {
+        window.location.href = "/mypage/history"
+    }
+    function handleInquiries() {
+        window.location.href = "/mypage/inquiries"
+    }
+    function handleLogout() {
+        window.location.href = "/login/logout"
+    }
+
+</script>
 </html>
