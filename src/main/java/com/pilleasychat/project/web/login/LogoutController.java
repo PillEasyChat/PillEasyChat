@@ -19,6 +19,6 @@ public class LogoutController {
         if (session != null) {
             session.invalidate(); // 세션 무효화
         }
-        return "redirect:/home";
+        return "redirect:/";
     }
 }

@@ -25,6 +25,12 @@ public class SignupServiceImpl implements SignupService {
     }
 
     @Override
+    public void generalRegister(UserDto userdto) {
+        User user = dtoToEntity(userdto);
+        userRepository.save(user);
+    }
+
+    @Override
     public User createUser(String email, String name) {
         StringBuffer key = new StringBuffer();
         Random rnd = new Random();

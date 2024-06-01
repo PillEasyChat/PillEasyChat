@@ -5,6 +5,7 @@ import com.pilleasychat.project.domain.entity.User;
 
 public interface SignupService {
     void register(UserDto userdto);
+    void generalRegister(UserDto userdto);
     User createUser(String email, String name);
     User findByEmail(String email);
     User dtoToEntity(UserDto user);

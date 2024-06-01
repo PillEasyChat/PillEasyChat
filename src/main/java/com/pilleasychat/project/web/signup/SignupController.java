@@ -40,10 +40,13 @@ public class SignupController {
         model.addAttribute("googleLocation", googleLocation);
         return "html/signup/signup";
     }
-
+    @GetMapping("/general")
+    public String generalSignup(@ModelAttribute("user") UserDto user){
+        return "html/signup/generalSignup";
+    }
     @PostMapping("")
     public String signup(@ModelAttribute("user") UserDto user) {
-        signupService.register(user);
+        signupService.generalRegister(user);
         return "redirect:/signup/success";
     }
 
@@ -53,7 +56,6 @@ public class SignupController {
         HttpSession session = request.getSession();
         User user = signupService.findByEmail((String)session.getAttribute("userEmail"));
         UserDto userDto = signupService.entityToDto(user);
-
         model.addAttribute("user", userDto);
         return "html/signup/additional";
     }

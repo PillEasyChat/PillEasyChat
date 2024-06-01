@@ -44,6 +44,6 @@ public class KakaoLoginController {
         session.setAttribute(SessionConst.LOGIN_MEMBER, user);
         session.setMaxInactiveInterval(1800);
 
-        return "redirect:/";
+        return "redirect:/chat";
     }
 }

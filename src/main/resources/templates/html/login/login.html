@@ -107,7 +107,7 @@
     <div class="login-title">로그인</div>
     <!--form 로그인-->
     <form th:action="@{/login}" method="post">
-        <input type="text" id="id" th:value="${id}" class="input-field" placeholder="아이디" aria-label="아이디" name="id"/>
+        <input type="text" id="email" th:value="${email}" class="input-field" placeholder="이메일" aria-label="이메일" name="email"/>
         <input type="password" id="password" th:value="${password}" class="input-field" placeholder="비밀번호"
                aria-label="비밀번호" name="password"/>
         <button class="button" type="submit">로그인 하기</button>
