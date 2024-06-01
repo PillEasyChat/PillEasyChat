@@ -44,4 +44,14 @@ public class MypageController {
         signupService.update(user, userDto);
         return "redirect:/mypage";
     }
+
+    @GetMapping("/history")
+    public String history(){
+        return "html/mypage/history";
+    }
+
+    @GetMapping("/inquiries")
+    public String inquiries(){
+        return "html/mypage/inquiries";
+    }
 }
