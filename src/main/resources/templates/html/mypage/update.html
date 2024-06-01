@@ -124,45 +124,22 @@
     <h1 class="signup-title">회원정보 수정</h1>
     <!--아바타가 있으면 아바타를 표시하고, 그렇지 않으면 기본 이미지를 표시-->
     <div class="avatar-section">
-        <img th:src="${userAvatar != null ? @{${userAvatar}} : @{/resources/templates/images/default-avatar.png}}"
+        <img src="/images/img_6.png"
              alt="User Avatar" class="avatar-image"/>
-
-        <form th:action="@{/upload-avatar}" method="post" enctype="multipart/form-data">
-            <input type="file" name="avatar" class="avatar-button" accept="image/*" onchange="readURL(this);"/>
-        </form>
     </div>
-    <script>
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    document.querySelector('.avatar-image').setAttribute('src', e.target.result);
-                }
-
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            document.querySelector('.avatar-button').addEventListener('change', function () {
-                readURL(this);
-            });
-        });
-    </script>
-    <form th:action="@{/update-profile}" th:object="${user}" method="post" enctype="multipart/form-data">
-        <input type="text" id="username" th:field="*{username}" class="input-wrapper" aria-label="이름" placeholder="이름"/>
+    <form th:action="@{/mypage/update}" th:object="${user}" method="post" enctype="multipart/form-data">
+        <input type="text" id="username" th:field="*{name}" class="input-wrapper" aria-label="이름" placeholder="이름"/>
         <input type="text" id="nickname" th:field="*{nickname}" class="input-wrapper" aria-label="닉네임"
                placeholder="닉네임"/>
         <div class="age-group-section" id="age">
             <select class="input-wrapper" th:field="*{age}" style="padding-left: 13px">
                 <option value="">연령대</option>
-                <option value="10대">10대</option>
-                <option value="20대">20대</option>
-                <option value="30대">30대</option>
-                <option value="40대">40대</option>
-                <option value="50대">50대</option>
-                <option value="60대 이상">60대 이상</option>
+                <option value="10">10대</option>
+                <option value="20">20대</option>
+                <option value="30">30대</option>
+                <option value="40">40대</option>
+                <option value="50">50대</option>
+                <option value="60">60대 이상</option>
             </select>
         </div>
         <div class="additional-info" id="special">
@@ -178,10 +155,10 @@
             <section class="input-wrapper" id="takingMedicine">
                 <span>알러지 유무</span>
                 <label class="section_text">
-                    <input type="radio" name="allergies" value="yes" th:field="*{allergies}"> 있음
+                    <input type="radio" name="allergies" value="yes" th:field="*{allergy}"> 있음
                 </label>
                 <label>
-                    <input type="radio" name="allergies" value="no" th:field="*{allergies}"> 없음
+                    <input type="radio" name="allergies" value="no" th:field="*{allergy}"> 없음
                 </label>
             </section>
         </div>
