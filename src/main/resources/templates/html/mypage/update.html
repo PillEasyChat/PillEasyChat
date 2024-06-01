@@ -127,12 +127,13 @@
         <img src="/images/img_6.png"
              alt="User Avatar" class="avatar-image"/>
     </div>
-    <form th:action="@{/mypage/update}" th:object="${user}" method="post" enctype="multipart/form-data">
+    <form th:action="@{/mypage/update}" th:object="${userDto}" method="post" enctype="multipart/form-data">
         <input type="text" id="username" th:field="*{name}" class="input-wrapper" aria-label="이름" placeholder="이름"/>
         <input type="text" id="nickname" th:field="*{nickname}" class="input-wrapper" aria-label="닉네임"
                placeholder="닉네임"/>
+        <input type="hidden" id="email" th:field="*{email}" readonly>
         <div class="age-group-section" id="age">
-            <select class="input-wrapper" th:field="*{age}" style="padding-left: 13px">
+            <select class="input-wrapper" th:field="*{userAge}" style="padding-left: 13px">
                 <option value="">연령대</option>
                 <option value="10">10대</option>
                 <option value="20">20대</option>

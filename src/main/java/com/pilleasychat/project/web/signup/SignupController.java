@@ -62,8 +62,8 @@ public class SignupController {
     public String additional(@ModelAttribute UserDto userDto, HttpServletRequest request) {
         HttpSession session = request.getSession();
         User user = signupService.findByEmail((String)session.getAttribute("userEmail"));
-        signupService.update(user, userDto); //오류 발생. user가 null
-        return "redirect:/";
+        signupService.update(user, userDto);
+        return "redirect:/mypage";
     }
 
     @GetMapping("/success")
