@@ -154,10 +154,7 @@
     <div class="age-group">연령대: <span th:text="${user.age}"></span></div>
     <div class="special-notes">특이사항: <span th:text="${user.specialNote}"></span></div>
     <div class="allergies-section" id="allergy" style="font-weight: normal;">
-        <section>
-            <span class="allergy-info">알러지 유무: <span
-                    th:text="${user.allergies.equals('yes') ? '있음' : '없음'}"></span></span>
-        </section>
+        <div class="allergy-info">약품 알러지: <span th:text="${user.allergy}"></span></div>
     </div>
     <div class="special-notes">복용하고 있는 약: <span th:text="${user.takingMedication}"></span></div>
     <div class="action-section">
@@ -167,15 +164,6 @@
             <button type="button" class="verification-button" th:onclick="'window.location.href=\'/change-email\''">
                 이메일
                 수정
-            </button>
-        </div>
-    </div>
-    <div class="action-section">
-        <div class="password-verification">
-            <input type="password" id="password" class="input-wrapper" aria-label="비밀번호" th:value="${user.password}"
-                   placeholder="비밀번호" disabled/>
-            <button class="verification-button2"
-                    th:onclick="'window.location.href=\'/change-password\''">비밀번호 수정
             </button>
         </div>
     </div>
