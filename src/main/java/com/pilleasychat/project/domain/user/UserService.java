@@ -9,4 +9,6 @@ public interface UserService {
     User findByEmail(String email);
     void deleteById(Long id);
     void update(User user);
+    void saveHistory(String history);
+    String getHistory(User user);
 }
