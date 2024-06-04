@@ -1,5 +1,6 @@
 package com.pilleasychat.project.web.chatbot.controller;
 
+import com.pilleasychat.project.domain.chat.ChatService;
 import com.pilleasychat.project.domain.entity.User;
 import com.pilleasychat.project.domain.signup.SignupService;
 import com.pilleasychat.project.web.chatbot.dto.ChatRequest;
@@ -25,6 +26,7 @@ public class GenerativeController {
 
     private final GenAIService genAIService;
     private final SignupService signupService;
+    private final ChatService chatService;
 
     @PostMapping
     public ChatResponse getChatResponse(@RequestBody ChatRequest chatRequest, HttpServletRequest request) {
@@ -32,8 +34,10 @@ public class GenerativeController {
         HttpSession session = request.getSession();
         User user = signupService.findByEmail((String)session.getAttribute("userEmail"));
 
-        System.out.println(chatRequest.getMessage());
-        return new ChatResponse(genAIService.getResponse(user.getId(), chatRequest));
+        ChatResponse chatResponse = new ChatResponse(genAIService.getResponse(user.getId(), chatRequest));
+        chatService.save(chatRequest.getMessage(), user, "user");
+        chatService.save(chatResponse.getResponse(), user, "bot");
+        return chatResponse;
     }
 
     /*

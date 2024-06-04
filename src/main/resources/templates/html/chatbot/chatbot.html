@@ -267,7 +267,7 @@
     </div>
 </div>
 
-<script>
+<script th:inline="javascript">
     const chatBox = document.getElementById('chat-box');
     const userInput = document.getElementById('user-input');
 
@@ -293,6 +293,7 @@
     window.onload = function () {
         sendBotMessage("안녕하세요! 무엇을 도와드릴까요?");
         startButton();
+        load();
     }
 
 
@@ -325,7 +326,14 @@
     }
 
     function record() {
-        sendBotMessage("이전 기록 보기");
+        const chatHistoryData = [[${chatHistory}]];
+        chatHistoryData.forEach(chat => {
+            sendMessage(chat.content, chat.isUser);
+        });
+    }
+
+    function load() {
+
     }
 
 
