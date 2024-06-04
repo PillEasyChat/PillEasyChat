@@ -34,29 +34,27 @@ public class GenerativeController {
         HttpSession session = request.getSession();
         User user = signupService.findByEmail((String)session.getAttribute("userEmail"));
 
-        ChatResponse chatResponse = new ChatResponse(genAIService.getResponse(user.getId(), chatRequest));
-        chatService.save(chatRequest.getMessage(), user, "user");
-        chatService.save(chatResponse.getResponse(), user, "bot");
-        return chatResponse;
+        if (genAIService.getResponse(user.getId(), chatRequest).contains(user.getAllergy())) {
+            ChatResponse chatResponse = new ChatResponse(user.getName()+"님은 "+user.getAllergy()+"증상이 있으므로 특히 조심하세요!"+genAIService.getResponse(user.getId(), chatRequest));
+            chatService.save(chatRequest.getMessage(), user, "user");
+            chatService.save(chatResponse.getResponse(), user, "bot");
+
+            return chatResponse;
+        }
+        else {
+            ChatResponse chatResponse = new ChatResponse(genAIService.getResponse(user.getId(), chatRequest));
+            chatService.save(chatRequest.getMessage(), user, "user");
+            chatService.save(chatResponse.getResponse(), user, "bot");
+
+            return chatResponse;
+        }
     }
 
-    /*
-    @PostMapping("/agent")
-    public ChatResponse chat(@RequestBody ChatRequest request) {
-        return new ChatResponse(genAIService.chat(request));
+    @PostMapping("/history")
+    public String getHistory(HttpServletRequest request) {
+        //HttpSession session = request.getSession();
+        //User user = signupService.findByEmail((String)session.getAttribute("userEmail"));
+        //user.getId()
+        return genAIService.getHistory(3L);
     }
-    */
-    /*
-    @PostMapping("/pdf")
-    public String chatWithPdf(@RequestBody String text) {
-        return genAIService.chatWithPdf(text);
-    }
-    */
-
-//    @PostMapping("/user")
-//    public UserModel getUserModelFromId(@RequestBody ChatRequest request) {
-//        return genAIService.getUserModelFromId(request.userId());
-//    }
-
-
 }

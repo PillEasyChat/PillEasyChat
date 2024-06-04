@@ -3,6 +3,7 @@ package com.pilleasychat.project.web.chatbot.service;
 import com.pilleasychat.project.web.chatbot.dto.ChatRequest;
 import com.pilleasychat.project.web.chatbot.model.UserModel;
 import dev.langchain4j.data.segment.TextSegment;
+import dev.langchain4j.memory.chat.ChatMemoryProvider;
 import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.service.TokenStream;
 import dev.langchain4j.store.embedding.EmbeddingMatch;
@@ -16,10 +17,6 @@ public interface GenAIService {
 
     String getResponse(Long userId, ChatRequest request);
 
-    //String chatWithPdf(String text);
+    String getHistory(Long userId);
 
-    List<EmbeddingMatch<TextSegment>> search(String query, int maxResults);
-    //TokenStream lcGetResponse(int memoryId, String userMessage);
-
-    UserModel getUserModelFromId(int id);
 }

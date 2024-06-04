@@ -1,6 +1,8 @@
 package com.pilleasychat.project.web.chatbot.service;
 
 import com.pilleasychat.project.web.chatbot.model.UserModel;
+import dev.langchain4j.memory.chat.ChatMemoryProvider;
+import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.service.MemoryId;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
@@ -8,6 +10,7 @@ import dev.langchain4j.service.V;
 // import dev.langchain4j.service.TokenStream;
 
 public interface Assistant {
+    //Base your answer on the following information:{information}
 
     @SystemMessage(
             """

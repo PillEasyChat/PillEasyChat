@@ -37,5 +37,14 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public void saveHistory(String history) {
+        
+    }
+
+    @Override
+    public String getHistory(User user) {
+        return "";
+    }
 
 }
