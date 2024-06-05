@@ -97,7 +97,7 @@ public class LangChain4jConfig {
                 List<String> chunks = splitText(d);
                 //System.out.println(chunks);
                 //System.out.println("\n");
-                TextSegment segmentChroma = TextSegment.from(chunks.getFirst());
+                TextSegment segmentChroma = TextSegment.from(chunks.get(0));
                 Embedding embeddingChroma = embeddingModel.embed(segmentChroma).content();
                 embeddingStore.add(embeddingChroma, segmentChroma);
             }
