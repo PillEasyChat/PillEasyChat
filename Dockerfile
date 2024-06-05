@@ -1,5 +1,5 @@
 # 기본 이미지는 jdk 21
-FROM openjdk:21
+FROM openjdk:17
 
 #빌드 시점에 사용될 변수를 정의
 #JAR_FILE은 빌드 컨텍스트 내의 jar 파일 경로를 지정하는 데 사용
