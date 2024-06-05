@@ -37,7 +37,7 @@ public class LangChain4jConfig {
     public EmbeddingStore<TextSegment> embeddingStore() {
 //        chroma.start();
         return ChromaEmbeddingStore.builder()
-                .baseUrl("http://localhost:8000/")
+                .baseUrl("http://34.22.69.100:8000/")
                 .collectionName("my_collection")
                 .build();
     }
