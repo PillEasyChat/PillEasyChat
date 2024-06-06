@@ -18,7 +18,8 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(new LoginCheckInterceptor())
                 .order(1)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/api/chat/history", "/api/chat/pdf2", "/api/chat/pdf", "/api/chat/user", "/api/chat", "/home", "/signup", "/login/**", "/css/**", "/*.ico", "/error", "/js/**", "/images/**", "static/**",
+                .excludePathPatterns("/api/chat/history", "/api/chat/pdf2", "/api/chat/pdf", "/api/chat/user", "/api/chat", "/home", "/signup", "/login/**", "/css/**", "/*.ico",
+                        "/error", "/js/**", "/images/**", "static/**", "/", "/signup/general", "/signup/success",
                         "https://developers.kakao.com/sdk/js/kakao.min.js",
                         "https://apis.google.com/js/platform.js");
 
@@ -26,7 +27,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .order(1)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/api/chat/history", "/home", "/signup/**", "/login/**", "/logout", "/css/**", "/*.ico", "/error", "/js/**", "/images/**", "static/**",
-                        "https://developers.kakao.com/sdk/js/kakao.min.js",
+                        "https://developers.kakao.com/sdk/js/kakao.min.js", "/", "/signup/general", "/signup/success",
                         "https://apis.google.com/js/platform.js");
     }
 }

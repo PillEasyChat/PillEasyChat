@@ -35,7 +35,7 @@ public class SignupController {
     public String signupPage(@ModelAttribute("user") UserDto user, Model model) {
         String kakaoLocation = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id="+kakao_client_id+"&redirect_uri="+kakao_redirect_uri;
         String googleLocation = "https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email&client_id="
-                + google_client_id + "&response_type=code&redirect_uri=http://34.22.69.100:8080/login/oauth2/code/google&access_type=offline";
+                + google_client_id + "&response_type=code&redirect_uri=http://hello.pilleasychat.p-e.kr:8080/login/oauth2/code/google&access_type=offline";
         model.addAttribute("kakaoLocation", kakaoLocation);
         model.addAttribute("googleLocation", googleLocation);
         return "html/signup/signup";
@@ -65,7 +65,7 @@ public class SignupController {
         HttpSession session = request.getSession();
         User user = signupService.findByEmail((String)session.getAttribute("userEmail"));
         signupService.update(user, userDto);
-        return "redirect:/mypage";
+        return "redirect:/chat";
     }
 
     @GetMapping("/success")

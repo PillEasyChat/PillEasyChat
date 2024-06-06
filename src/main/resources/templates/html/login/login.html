@@ -113,11 +113,11 @@
         <button class="button" type="submit">로그인 하기</button>
     </form>
     <!--아이디 찾기 | 비밀번호 찾기-->
-    <form>
-        <a th:href="@{/login/findId}" class="link-text">아이디 찾기</a>
-        <label>|</label>
-        <a th:href="@{/login/findPassword}" class="link-text">비밀번호 찾기</a>
-    </form>
+<!--    <form>-->
+<!--        <a th:href="@{/login/findId}" class="link-text">아이디 찾기</a>-->
+<!--        <label>|</label>-->
+<!--        <a th:href="@{/login/findPassword}" class="link-text">비밀번호 찾기</a>-->
+<!--    </form>-->
     <div class="sns-title" style="margin-top: 20px;">SNS로 간편 로그인</div>
 
     <div class="sns-login-container">
@@ -126,8 +126,9 @@
             <img loading="lazy" src="/images/img_4.png" alt="SNS KaKao" class="sns-icon"/>
         </a>
         <!--구굴로 로그인-->
-        <a th:href="${googleLocation}">
-            <img loading="lazy" src="/images/img_7.png" alt="SNS Naver" class="sns-icon"/>
+<!--        <a th:href="${googleLocation}">-->
+        <a href="#">
+            <img loading="lazy" src="/images/img_7.png" alt="SNS Google" class="sns-icon"/>
         </a>
     </div>
     <!--회원가입 이동-->

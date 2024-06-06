@@ -1,5 +1,6 @@
 package com.pilleasychat.project.web.chatbot.config;
 
+import dev.ai4j.openai4j.OpenAiHttpException;
 import dev.langchain4j.data.embedding.Embedding;
 import dev.langchain4j.model.openai.OpenAiEmbeddingModel;
 import dev.langchain4j.model.openai.OpenAiTokenizer;
@@ -11,15 +12,20 @@ import dev.langchain4j.store.embedding.EmbeddingStore;
 import dev.langchain4j.store.embedding.chroma.ChromaEmbeddingStore;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.ResourceLoader;
 import org.testcontainers.chromadb.ChromaDBContainer;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,11 +39,13 @@ public class LangChain4jConfig {
     @Value("${spring.api.api-key}")
     private String apiKey;
 
+    @Autowired
+    private ResourceLoader resourceLoader;
     @Bean
     public EmbeddingStore<TextSegment> embeddingStore() {
 //        chroma.start();
         return ChromaEmbeddingStore.builder()
-                .baseUrl("http://34.22.69.100:8000/")
+                .baseUrl("http://hello.pilleasychat.p-e.kr:8000/")
                 .collectionName("my_collection")
                 .build();
     }
@@ -84,25 +92,48 @@ public class LangChain4jConfig {
     @Bean
     CommandLineRunner ingestChroma(
             EmbeddingStore<TextSegment> embeddingStore,
-            EmbeddingModel embeddingModel,
-            ResourceLoader resourceLoader
+            EmbeddingModel embeddingModel
     ) {
         return (args) -> {
-            var resource = resourceLoader.getResource("classpath:pdf/api_xmldata_preprocess1.pdf");
-            var file = resource.getFile();
-            String textContent = extractTextFromPDF(file);
-            //System.out.println(document);
-            List<String> documents = splitDocuments(textContent);
-            for (String d : documents) {
-                List<String> chunks = splitText(d);
-                //System.out.println(chunks);
-                //System.out.println("\n");
-                TextSegment segmentChroma = TextSegment.from(chunks.get(0));
-                Embedding embeddingChroma = embeddingModel.embed(segmentChroma).content();
-                embeddingStore.add(embeddingChroma, segmentChroma);
+            var resource = resourceLoader.getResource("classpath:static/pdf/api_xmldata_preprocess1.pdf");
+            try (InputStream inputStream = resource.getInputStream()) {
+                File tempFile = convertInputStreamToFile(inputStream);
+                try {
+                    String textContent = extractTextFromPDF(tempFile);
+                    List<String> documents = splitDocuments(textContent);
+                    for (String d : documents) {
+                        List<String> chunks = splitText(d);
+                        TextSegment segmentChroma = TextSegment.from(chunks.get(0)); // getFirst() 메서드 대신 get(0)을 사용
+                        try {
+                            Embedding embeddingChroma = embeddingModel.embed(segmentChroma).content();
+                            embeddingStore.add(embeddingChroma, segmentChroma);
+                        } catch (OpenAiHttpException e) {
+                            // OpenAI API 호출 실패 시 처리
+                            System.err.println("OpenAI API 호출 실패: " + e.getMessage());
+                            // 재시도 로직을 추가할 수 있음
+                        }
+                    }
+                    System.out.println(embeddingStore);
+                } finally {
+                    Files.delete(tempFile.toPath()); // 임시 파일 삭제
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                // 예외 처리
             }
-            System.out.println(embeddingStore);
         };
+    }
+
+    private File convertInputStreamToFile(InputStream inputStream) throws IOException {
+        File tempFile = File.createTempFile("temp", ".pdf");
+        try (FileOutputStream outputStream = new FileOutputStream(tempFile)) {
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+        }
+        return tempFile;
     }
 
     private String extractTextFromPDF(File file) throws IOException {
